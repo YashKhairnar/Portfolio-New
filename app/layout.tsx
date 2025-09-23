@@ -13,7 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio"
+  title: "Yash Khairnar — Portfolio",
+  description: "Applied ML × Full-stack: projects, papers, and contact.",
+  icons : {
+    icon : 'public/favicon.png'
+  }
 };
 
 export default function RootLayout({
