@@ -284,9 +284,8 @@ const Portfolio = () => {
               Researching, building, and deploying AI/ML applications that solve real-world problems.
             </p>
             <InternshipStatus />
-          </div>
 
-          <div className="flex justify-center space-x-5">
+            <div className="flex justify-center space-x-5">
             {[
               {href: 'https://github.com/YashKhairnar' },
               {href: 'https://www.linkedin.com/in/yashkhairnar11/' },
@@ -297,6 +296,7 @@ const Portfolio = () => {
                   <SocialIcon url={social.href} key={index} className="p-3 text-gray-500 hover:text-blue-500 transition-colors" />
               );
             })}
+          </div>
           </div>
         </div>
       
