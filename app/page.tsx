@@ -283,9 +283,10 @@ const Portfolio = () => {
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed font-light">
               Researching, building, and deploying AI/ML applications that solve real-world problems.
             </p>
+            
             <InternshipStatus />
 
-            <div className="flex justify-center space-x-5">
+            <div className="flex justify-center space-x-5 pt-10">
             {[
               {href: 'https://github.com/YashKhairnar' },
               {href: 'https://www.linkedin.com/in/yashkhairnar11/' },
@@ -293,7 +294,7 @@ const Portfolio = () => {
               {href: 'mailto:yashkvk7@gmail.com' }
             ].map((social, index) => {
               return (
-                  <SocialIcon url={social.href} key={index} className="p-3 text-gray-500 hover:text-blue-500 transition-colors" />
+                  <SocialIcon url={social.href} key={index} className="p-3 text-gray-500 hover:text-blue-500 transition-colors h-5 w-5" />
               );
             })}
           </div>
