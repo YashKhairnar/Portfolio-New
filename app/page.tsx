@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Brain, Zap, Rocket, Cloud } from 'lucide-react';
 import BackgroundParticles from './components/background';
+import InternshipStatus from './components/notification';
+import { Inter } from 'next/font/google';
 
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -199,6 +201,7 @@ const Portfolio = () => {
             <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
               Researching, building, and deploying AI/ML applications that solve real-world problems.
             </p>
+            <InternshipStatus/>
           </div>
           
           <div 
