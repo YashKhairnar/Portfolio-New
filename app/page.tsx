@@ -265,7 +265,8 @@ const Portfolio = () => {
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <h1 className="text-5xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight text-gradient-to-r from-teal-400 to-yellow-200">
+            <h1 className="text-6xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient
+            bg-[length:200%_auto] animate-gradient text-stroke-black">
               Software Developer
               <span className="block text-4xl md:text-5xl mt-4 font-light tracking-tight text-slate-600">
                 AI&nbsp;&amp;&nbsp;ML
@@ -279,7 +280,7 @@ const Portfolio = () => {
               </span>
             </h1>
           
-            <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed font-light">
               Researching, building, and deploying AI/ML applications that solve real-world problems.
             </p>
             <InternshipStatus />

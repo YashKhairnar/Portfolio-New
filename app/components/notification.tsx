@@ -15,7 +15,7 @@ export default function InternshipStatus() {
             </div>
             {/* Text with flicker animation */}
             <p className="text-emerald-700 font-semibold text-lg tracking-wide flicker">
-              Currently looking for Summer 2026 internships
+              Actively looking for Summer 2026 internships
             </p>
           </div>
         </div>
