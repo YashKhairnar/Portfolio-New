@@ -1,9 +1,9 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Brain, Zap, Rocket, Cloud } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Brain, Zap, Rocket, Cloud, Award, Trophy, Users, Icon } from 'lucide-react';
 import BackgroundParticles from './components/background';
 import InternshipStatus from './components/notification';
-import { Inter } from 'next/font/google';
+import { SocialIcon } from 'react-social-icons';
 
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,7 +30,7 @@ const Portfolio = () => {
   // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -141,7 +141,37 @@ const Portfolio = () => {
         "Developed and deployed YOLO models for industrial automation, achieving 92%+ detection accuracy and streamlining inventory tracking through end-to-end ML pipelines"
       ]
     },
-    ]
+  ];
+
+  const achievements = [
+    {
+      category: "Awards",
+      icon: Trophy,
+      items: [
+        {
+          title: "Best Student Award - International Institute of Information Technology",
+          description: "Recognized for both academic and extra-curricular performance throughtout the 4 years of undergraduation",
+          date: "March 2024"
+        },
+      ]
+    },
+    {
+      category: "Leadership",
+      icon: Users,
+      items: [
+        {
+          title: "Project Lead",
+          description: "Led cross-functional team of 6 engineers in developing industrial ML solutions, managing project timelines and deliverables",
+          date: "2024"
+        },
+        {
+          title: "Chairman - CESA ( I2IT )",
+          description: "Led diverse technical and social programming to give students broad exposure to technology, leadership, and community engagement.",
+          date: "2023-2024"
+        },
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -159,79 +189,118 @@ const Portfolio = () => {
      <BackgroundParticles />
      
       {/* Minimal Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
-          <div className="text-xl font-medium text-gray-900">
-            Yash Khairnar
-          </div>
-          
-          <div className="hidden md:flex space-x-12">
-            {['home', 'about', 'projects', 'skills', 'contact'].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className={`capitalize transition-all duration-300 text-sm font-medium ${
-                  activeSection === section ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                {section}
-              </button>
-            ))}
+            <nav className="fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 bg-white/60 backdrop-blur-sm border-gray-100 hover:bg-white/80">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+          {/* Logo / Name */}
+          <button
+            onClick={() => scrollToSection('home')}
+            className="text-xl font-bold tracking-tight text-slate-900"
+          >
+            Yash <span className="text-sky-900 font-bold">Khairnar</span>
+          </button>
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center space-x-10">
+            {['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'].map(
+              (section) => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className={`capitalize relative text-sm font-medium transition-all duration-300 ${
+                    activeSection === section
+                      ? 'text-slate-900'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  {section}
+                  {/* Active underline accent */}
+                  <span
+                    className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
+                      activeSection === section
+                        ? 'w-6 bg-sky-900'
+                        : 'w-0 bg-sky-900/0 group-hover:w-6'
+                    }`}
+                  />
+                </button>
+              )
+            )}
+
+            {/* Resume Button */}
+            <a
+              href="/Yash_Khairnar_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-4 py-2 font-medium bg-sky-900 text-white text-sm hover:bg-sky-800 transition-colors duration-300"
+            >
+              Resume
+            </a>
           </div>
         </div>
       </nav>
 
+
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative z-10">
-        <div className="text-center space-y-8 px-6 max-w-4xl">
-          <div 
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center z-10 h-full w-full bg-white overflow-hidden"
+      >
+        <div className="absolute inset-0">
+          <div
+            className="
+              relative h-full w-full
+              [&>div]:absolute [&>div]:h-full [&>div]:w-full
+              [&>div]:bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]
+              [&>div]:[background-size:16px_16px]
+              [&>div]:[mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]
+            "
+          >
+            <div></div>
+          </div>
+        </div>
+
+        {/* 🟦 Hero Content */}
+        <div className="text-center space-y-8 px-6 max-w-4xl relative z-10">
+          <div
             className={`transition-all duration-1000 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <h1 className="text-5xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight">
+            <h1 className="text-5xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight text-gradient-to-r from-teal-400 to-yellow-200">
               Software Developer
               <span className="block text-4xl md:text-5xl mt-4 font-light tracking-tight text-slate-600">
                 AI&nbsp;&amp;&nbsp;ML
-                <span aria-hidden="true" className="mx-2 align-baseline text-slate-600 ">×</span>
+                <span
+                  aria-hidden="true"
+                  className="mx-2 align-baseline text-slate-600"
+                >
+                  ×
+                </span>
                 Full-stack
               </span>
-
             </h1>
+          
             <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
               Researching, building, and deploying AI/ML applications that solve real-world problems.
             </p>
-            <InternshipStatus/>
-          </div>
-          
-          <div 
-            className={`flex flex-col sm:flex-row gap-6 justify-center transition-all duration-1000 delay-200 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            <button 
-              onClick={() => scrollToSection('projects')}
-              className="group px-8 py-3 bg-gray-900 text-white rounded-sm font-medium transition-all duration-300 hover:bg-gray-800 text-sm tracking-wide"
-            >
-              VIEW WORK
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="px-8 py-3 border border-gray-300 text-gray-700 rounded-sm font-medium transition-all duration-300 hover:border-gray-400 text-sm tracking-wide"
-            >
-              GET IN TOUCH
-            </button>
+            <InternshipStatus />
           </div>
 
-          <div 
-            className={`absolute bottom-12 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-500 ${
-              isLoaded ? 'opacity-60' : 'opacity-0'
-            }`}
-          >
-            <ChevronDown className="w-10 h-10 text-gray-600 animate-pulse" />
+          <div className="flex justify-center space-x-5">
+            {[
+              {href: 'https://github.com/YashKhairnar' },
+              {href: 'https://www.linkedin.com/in/yashkhairnar11/' },
+              {href: 'https://x.com/I_esoteric' },
+              {href: 'mailto:yashkvk7@gmail.com' }
+            ].map((social, index) => {
+              return (
+                  <SocialIcon url={social.href} key={index} className="p-3 text-gray-500 hover:text-blue-500 transition-colors" />
+              );
+            })}
           </div>
         </div>
+      
       </section>
+
 
       {/* About Section */}
       <section id="about" className="py-32 px-6 relative z-10">
@@ -246,13 +315,13 @@ const Portfolio = () => {
                 The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries. I love to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
               </p>
               <p className="text-base text-gray-600 leading-relaxed font-light">
-                I hold a Bachelor’s in Computer Engineering from Pune University and am currently pursuing an M.S. in Computer Science at San José State University.
+                I hold a Bachelor's in Computer Engineering from Pune University and am currently pursuing an M.S. in Computer Science at San José State University.
               </p>
               <p className="text-base text-gray-600 leading-relaxed font-light">
-                My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, Natural Language Processing, and multimodal AI. Beyond AI, I’m proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools (Docker, Kubernetes).
+                My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, Natural Language Processing, and multimodal AI. Beyond AI, I'm proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools (Docker, Kubernetes).
               </p>
               <p className="text-base text-gray-600 leading-relaxed font-light">
-                As a software engineer, I’m dedicated to building impactful applications that solve real-world problems. My focus is on advancing machine learning and multimodal AI, integrating these technologies to drive innovation and deliver value.
+                As a software engineer, I'm dedicated to building impactful applications that solve real-world problems. My focus is on advancing machine learning and multimodal AI, integrating these technologies to drive innovation and deliver value.
               </p>
             </div>
             
@@ -402,14 +471,66 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-      
+
+      {/* Achievements & Leadership Section */}
+      <section id="achievements" className="py-32 px-6 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-20 text-gray-900">
+            Achievements & Leadership
+          </h2>
+          
+          <div className="space-y-12">
+            {achievements.map((category, idx) => (
+              <div key={idx}>
+                {/* Category Header */}
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-12 h-12 bg-gray-900 flex items-center justify-center">
+                    <category.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-light text-gray-900 tracking-wide">
+                    {category.category}
+                  </h3>
+                </div>
+
+                {/* Timeline */}
+                <div className="relative pl-8">
+                  <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-200"></div>
+                  
+                  <div className="space-y-8">
+                    {category.items.map((item, itemIdx) => (
+                      <div key={itemIdx} className="relative">
+                        {/* Timeline dot */}
+                        <div className="absolute -left-8 w-3 h-3 bg-gray-400 rounded-full transform translate-x-[-4.5px] mt-2"></div>
+                        
+                        <div className="pl-8">
+                          <div className="flex items-start justify-between gap-4 mb-2">
+                            <h4 className="text-lg font-medium text-gray-900">
+                              {item.title}
+                            </h4>
+                            <span className="text-sm text-gray-500 font-light whitespace-nowrap">
+                              {item.date}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 leading-relaxed font-light">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 relative z-10">
+      <section id="contact" className="py-32 px-6 relative z-10 bg-gray-50">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-center mb-20 text-gray-900">
             Let's Connect
           </h2>
-          
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-3 text-gray-700 tracking-wide">NAME</label>
@@ -449,28 +570,8 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 border-t border-gray-200 relative z-10 bg-gray-50">
+      <footer className="py-16 px-6 border-t border-gray-200 relative z-10 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center space-x-8 mb-8">
-            {[
-              { icon: Github, href: 'https://github.com/YashKhairnar' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/in/yashkhairnar11/' },
-              { icon: Twitter, href: 'https://x.com/I_esoteric' },
-              { icon: Mail, href: 'mailto:yashkvk7@gmail.com' }
-            ].map((social, index) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="p-3 text-gray-500 hover:text-gray-700 transition-colors"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              );
-            })}
-          </div>
-          
           <p className="text-center text-sm text-gray-500 tracking-wide">
             © 2025 Yash Khairnar. ALL RIGHTS RESERVED.
           </p>

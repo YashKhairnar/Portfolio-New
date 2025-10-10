@@ -13,7 +13,6 @@ export default function InternshipStatus() {
               <div className="w-3 h-3 bg-emerald-400 rounded-full animate-ping absolute" />
               <div className="w-3 h-3 bg-emerald-500 rounded-full relative" />
             </div>
-            
             {/* Text with flicker animation */}
             <p className="text-emerald-700 font-semibold text-lg tracking-wide flicker">
               Currently looking for Summer 2026 internships
