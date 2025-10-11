@@ -261,6 +261,7 @@ const Blog = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Mouse tracking
   useEffect(() => {
@@ -394,7 +395,7 @@ const Blog = () => {
             Yash <span className="text-sky-900 font-bold">Khairnar</span>
           </Link>
 
-          <div className="flex items-center space-x-4 sm:space-x-6">
+          <div className="hidden lg:flex items-center space-x-4 sm:space-x-6">
             <Link
               href="/"
               className="relative text-xs sm:text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-2 sm:px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
@@ -402,7 +403,45 @@ const Blog = () => {
               Portfolio
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-slate-600 hover:text-slate-900 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div className="px-4 py-6 space-y-4">
+              <Link
+                href="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-left py-2 px-3 rounded-md text-sm font-medium text-orange-500 hover:text-orange-600 hover:bg-orange-50 transition-colors"
+              >
+                Portfolio
+              </Link>
+              <div className="pt-2">
+                <span className="block w-full text-left py-2 px-3 rounded-md text-sm font-medium text-slate-900 bg-gray-100">
+                  Blog
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}

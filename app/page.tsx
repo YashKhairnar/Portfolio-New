@@ -11,6 +11,7 @@ const Portfolio = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Mouse tracking
   useEffect(() => {
@@ -66,6 +67,7 @@ const Portfolio = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
   const projects = [
@@ -247,13 +249,62 @@ const Portfolio = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
-            <button className="text-slate-600 hover:text-slate-900 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-slate-600 hover:text-slate-900 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div className="px-4 py-6 space-y-4">
+              {['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'].map(
+                (section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`block w-full text-left py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                      activeSection === section
+                        ? 'text-slate-900 bg-gray-100'
+                        : 'text-slate-500 hover:text-slate-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {section.charAt(0).toUpperCase() + section.slice(1)}
+                  </button>
+                )
+              )}
+              
+              <div className="pt-4 border-t border-gray-200 space-y-3">
+                <a
+                  href="/blog"
+                  className="block w-full text-left py-2 px-3 rounded-md text-sm font-medium text-orange-500 hover:text-orange-600 hover:bg-orange-50 transition-colors"
+                >
+                  Blog
+                </a>
+                <a
+                  href="/Yash_Khairnar_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center py-2 px-3 rounded-md text-sm font-medium bg-sky-900 text-white hover:bg-sky-800 transition-colors"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
 
