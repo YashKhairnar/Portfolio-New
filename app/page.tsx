@@ -30,7 +30,7 @@ const Portfolio = () => {
   // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'];
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'blog', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -189,12 +189,12 @@ const Portfolio = () => {
      <BackgroundParticles />
      
       {/* Minimal Navigation */}
-            <nav className="fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 bg-white/60 backdrop-blur-sm border-gray-100 hover:bg-white/80">
+      <nav className="fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 bg-white/60 backdrop-blur-sm border-gray-100 hover:bg-white/80">
         <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
           {/* Logo / Name */}
           <button
             onClick={() => scrollToSection('home')}
-            className="text-xl font-bold tracking-tight text-slate-900"
+            className="text-xl font-bold tracking-tight text-slate-900 px-3 py-1"
           >
             Yash <span className="text-sky-900 font-bold">Khairnar</span>
           </button>
@@ -224,6 +224,15 @@ const Portfolio = () => {
                 </button>
               )
             )}
+
+            {/* Blog Link */}
+            <a
+              href="/blog"
+              className="relative text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
+            >
+              Blog
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 w-0 bg-orange-500/0 group-hover:w-6" />
+            </a>
 
             {/* Resume Button */}
             <a
@@ -266,10 +275,10 @@ const Portfolio = () => {
             }`}
           >
             <h1 className="text-6xl md:text-8xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient
-            bg-[length:200%_auto] animate-gradient text-stroke-black">
+            bg-[length:200%_auto] animate-gradient">
               Software Developer
               <span className="block text-4xl md:text-5xl mt-4 font-light tracking-tight text-slate-600">
-                AI&nbsp;&amp;&nbsp;ML
+                AI/ML
                 <span
                   aria-hidden="true"
                   className="mx-2 align-baseline text-slate-600"
