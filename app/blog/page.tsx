@@ -386,18 +386,18 @@ const Blog = () => {
       
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 bg-white/60 backdrop-blur-sm border-gray-100 hover:bg-white/80">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex justify-between items-center">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-slate-900"
+            className="text-lg sm:text-xl font-bold tracking-tight text-slate-900"
           >
             Yash <span className="text-sky-900 font-bold">Khairnar</span>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4 sm:space-x-6">
             <Link
               href="/"
-              className="relative text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
+              className="relative text-xs sm:text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-2 sm:px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
             >
               Portfolio
             </Link>
@@ -421,56 +421,56 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="text-center space-y-8 px-6 max-w-5xl relative z-10">
+        <div className="text-center space-y-6 sm:space-y-8 px-4 sm:px-6 max-w-5xl relative z-10">
           <div
             className={`transition-all duration-1000 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <h1 className="p-10 text-6xl md:text-8xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient">
+            <h1 className="p-6 sm:p-8 lg:p-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient">
               Insights
             </h1>
           
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed font-light">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2">
                 My thoughts in a written form as explore the technology and the world.
             </p>
             
             {/* Scroll down indicator */}
-            <div className="mt-16 animate-bounce">
-              <ChevronDown className="w-6 h-6 text-gray-400 mx-auto" />
+            <div className="mt-12 sm:mt-16 animate-bounce">
+              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mx-auto" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Blog Posts Section */}
-      <section className="py-32 px-6 relative z-10">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {blogPosts.map((post, index) => (
               <article 
                 key={post.id}
                 className="group bg-white border border-gray-200 transition-all duration-500 hover:shadow-sm cursor-pointer"
                 onClick={() => setSelectedPost(post)}
               >
-                <div className="p-8">
+                <div className="p-4 sm:p-6 lg:p-8">
                   {post.featured && (
-                    <div className="mb-4">
-                      <span className="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-medium tracking-wide rounded-full">
+                    <div className="mb-3 sm:mb-4">
+                      <span className="px-2 sm:px-3 py-1 bg-sky-100 text-sky-800 text-xs font-medium tracking-wide rounded-full">
                         Featured
                       </span>
                     </div>
                   )}
                   
-                  <h2 className="text-xl font-medium mb-4 text-gray-900 group-hover:text-gray-700 transition-colors leading-tight">
+                  <h2 className="text-base sm:text-lg lg:text-xl font-medium mb-3 sm:mb-4 text-gray-900 group-hover:text-gray-700 transition-colors leading-tight">
                     {post.title}
                   </h2>
                   
-                  <p className="text-sm text-gray-600 mb-6 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 leading-relaxed font-light">
                     {post.excerpt}
                   </p>
                   
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
                     {post.tags.slice(0, 3).map((tag, tagIndex) => (
                       <span 
                         key={tagIndex}
@@ -481,9 +481,9 @@ const Blog = () => {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 text-xs text-gray-500">
                     <span>{post.author}</span>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4">
                       <span>{new Date(post.date).toLocaleDateString()}</span>
                       <span>{post.readTime}</span>
                     </div>
@@ -496,15 +496,15 @@ const Blog = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 border-t border-gray-200 relative z-10 bg-white">
+      <footer className="py-12 sm:py-16 px-4 sm:px-6 border-t border-gray-200 relative z-10 bg-white">
         <div className="max-w-4xl mx-auto">
-          <p className="text-center text-sm text-gray-500 tracking-wide">
+          <p className="text-center text-xs sm:text-sm text-gray-500 tracking-wide">
             © 2025 Yash Khairnar. ALL RIGHTS RESERVED.
           </p>
           
           {/* Scroll up indicator */}
-          <div className="mt-8 animate-bounce">
-            <ChevronDown className="w-6 h-6 text-gray-400 mx-auto rotate-180" />
+          <div className="mt-6 sm:mt-8 animate-bounce">
+            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mx-auto rotate-180" />
           </div>
         </div>
       </footer>
