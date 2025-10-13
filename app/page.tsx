@@ -72,6 +72,13 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: "ResuMatch",
+      link : "https://github.com/7shantanu7/Weave-Hackathon",
+      photo : "Resumatch.png",
+      description: "ResuMatch is an AI-powered platform that recommends the most relevant job postings using Tavily and enhances user resumes through a self-improving reinforcement learning agent.",
+      tech: ["Next.js", "Tavily", 'Reinforcement Learning', "LangGraph", "Git", "Flask"]
+    },
+    {
       title: "Slique",
       link : "www.slique.vercel.app",
       photo : "Slique.png",
