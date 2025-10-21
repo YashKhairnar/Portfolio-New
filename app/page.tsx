@@ -235,13 +235,13 @@ const Portfolio = () => {
             )}
 
             {/* Blog Link */}
-            <a
+            {/* <a
               href="/blog"
               className="relative text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-2 sm:px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
             >
               Blog
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 w-0 bg-orange-500/0 group-hover:w-6" />
-            </a>
+            </a> */}
 
             {/* Resume Button */}
             <a
