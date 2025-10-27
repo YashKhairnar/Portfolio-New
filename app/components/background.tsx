@@ -59,7 +59,10 @@ export default function BackgroundParticles() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(156, 163, 175, ${p.opacity})`; // slate-400-ish
+        // Use different colors based on theme
+        const isDark = document.documentElement.classList.contains('dark');
+        const color = isDark ? `rgba(107, 114, 128, ${p.opacity})` : `rgba(156, 163, 175, ${p.opacity})`; // gray-500 for dark, slate-400 for light
+        ctx.fillStyle = color;
         ctx.fill();
       }
 
