@@ -400,22 +400,14 @@ const Portfolio = () => {
               }
             ].map((social, index) => {
               return (
-                <div
-                  key={index}
-                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                  rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className={`group relative p-3 sm:p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 transition-all duration-300 hover:scale-110 hover:shadow-lg dark:hover:shadow-xl ${social.color}`}
-                  aria-label={social.label}
-                >
-                  <SocialIcon 
-                    url={social.href} 
-                    className="h-5 w-5 sm:h-6 sm:w-6 transition-all duration-300 group-hover:scale-110" 
+                <SocialIcon
+                    key={index}
+                    url={social.href}
+                    target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                    rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
+                    className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
+                    aria-label={social.label}
                   />
-                  {/* Tooltip */}
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-                    {social.label}
-                  </div>
-                </div>
               );
             })}
           </div>
