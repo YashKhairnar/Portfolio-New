@@ -78,9 +78,9 @@ const Portfolio = () => {
     {
       title: "CuriosityAI",
       link : "https://vimeo.com/1130720129?share=copy&fl=sv&fe=ci",
-      photo : "CuriosityAI.png",
+      photo : "curiosityAI.png",
       description: "An AI-powered agentic system that identifies innovation gaps in research landscapes using embedding inversion and retrieval-augmented generation, autonomously producing novel invention abstracts, sketches, and proposals to democratize R&D",
-      tech: ["CalHacks 12.0","Machine learning", 'Agentic AI', 'Embedding Inversion', 'RAG']
+      tech: ["CalHacks 12.0","Machine learning", 'Agentic AI','Voice Agent', 'Embedding Inversion', 'RAG']
     },
     {
       title: "ResuMatch",
@@ -400,9 +400,8 @@ const Portfolio = () => {
               }
             ].map((social, index) => {
               return (
-                <a
+                <div
                   key={index}
-                  href={social.href}
                   target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
                   rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
                   className={`group relative p-3 sm:p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 transition-all duration-300 hover:scale-110 hover:shadow-lg dark:hover:shadow-xl ${social.color}`}
@@ -416,7 +415,7 @@ const Portfolio = () => {
                   <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
                     {social.label}
                   </div>
-                </a>
+                </div>
               );
             })}
           </div>
@@ -721,19 +720,14 @@ const Portfolio = () => {
                   color: 'hover:text-red-500 dark:hover:text-red-400'
                 }
               ].map((social, index) => (
-                <a
+               <SocialIcon
                   key={index}
-                  href={social.href}
+                  url={social.href}
                   target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
                   rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className={`text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
+                  className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
                   aria-label={social.label}
-                >
-                  <SocialIcon 
-                    url={social.href} 
-                    className="h-5 w-5" 
-                  />
-                </a>
+                />
               ))}
             </div>
             
