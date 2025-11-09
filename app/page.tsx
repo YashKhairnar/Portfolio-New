@@ -6,6 +6,7 @@ import InternshipStatus from './components/notification';
 import ThemeToggle from './components/ThemeToggle';
 import { useTheme } from './contexts/ThemeContext';
 import { SocialIcon } from 'react-social-icons';
+import { ProjectCarousel } from './components/carousal';  
 
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -73,51 +74,6 @@ const Portfolio = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
-
-  const projects = [
-    {
-      title: "CuriosityAI",
-      link : "https://vimeo.com/1130720129?share=copy&fl=sv&fe=ci",
-      photo : "curiosityAI.png",
-      description: "An AI-powered agentic system that identifies innovation gaps in research landscapes using embedding inversion and retrieval-augmented generation, autonomously producing novel invention abstracts, sketches, and proposals to democratize R&D",
-      tech: ["CalHacks 12.0","Machine learning", 'Agentic AI','Voice Agent', 'Embedding Inversion', 'RAG']
-    },
-    {
-      title: "ResuMatch",
-      link : "https://drive.google.com/file/d/14aywsnvRjfeiIVkjFd6e3aDEQWGt9f9K/view",
-      photo : "Resumatch.png",
-      description: "ResuMatch is an AI-powered platform that recommends the most relevant job postings using Tavily and enhances user resumes through a self-improving reinforcement learning agent.",
-      tech: ["Next.js", "Tavily", 'Reinforcement Learning', "LangGraph", "Git", "Flask"]
-    },
-    {
-      title: "Slique",
-      link : "www.slique.vercel.app",
-      photo : "Slique.png",
-      description: "A platform for connecting Fashion Models to Brand recruiters. Built with features like Job posting, searching, application, real-time chatting, online contract based hiring and much more. ",
-      tech: ["Next.js", "TailwindCSS", "FastAPI", "PostgreSQL", "AWS RDS", "Git"]
-    },
-    {
-      title: "Image Colorizer",
-      link : "https://github.com/YashKhairnar/ImageColorizer",
-      photo : 'Image_Colorizer.jpg',
-      description: "Give colors to your black and white photographs using deep learning models",
-      tech: [ "Flask", "HTML/CSS", "NumPy", "OpenCv", "GAN", "Model Finetuning"]
-    },
-    {
-      title: "4Bit",
-      link : "https://github.com/YashKhairnar/4BIT",
-      photo : 'Genetic-code.jpg',
-      description: "A tool designed to diagnose Lung cancer with the help of multi-omics data and CT scan images.",
-      tech: ["Python", "Keras", "Tensorflow", 'Multi Omics', 'Biomarkers', 'Genetic Mutations']
-    },
-    {
-      title: "Roomie Radar",
-      link : "https://github.com/YashKhairnar/RoomieRadar",
-      photo : "roomieRadar.jpeg",
-      description: "Roommate matching app that uses preference-based compatibility scoring to suggest the best fits.",
-      tech: ["Next.js", "Machine Learning"]
-    },
-  ];
 
   const skills = [
     { name: "Machine Learning and AI", icon: Brain, tech: "Regression, Classification, Support Vector Machines, Decision Trees, Hidden Markov Models, Random Forest, Ensemble Learning, Dimensionality Reduction, Unsupervised Learning, Deep Learning, Computer Vision, Transformers, Auto-encoders & GANs, Natural Language Processing, RL Algorithms, Time series data analysis" },
@@ -515,43 +471,42 @@ const Portfolio = () => {
             My Projects
           </h2>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {projects.map((project, index) => (
-              <div 
-                key={index}
+          <div className='flex flex-row gap-6 sm:gap-8  w-2/4 mx-auto'>
+              {/* <div 
+                key={currentProjectIndex}
                 className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:shadow-sm dark:hover:shadow-lg"
               >
                 <div className="bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                  <img src={project.photo || " "} alt="Display Image" />
+                  <img src={projects[currentProjectIndex].photo || " "} alt="Display Image" />
                 </div>
                 
                 <div className="p-4 sm:p-6 lg:p-8">
                   <h3 className="flex items-start sm:items-center justify-between text-base sm:text-lg font-medium mb-3 sm:mb-4 text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                    <span className="flex-1 pr-2">{project.title}</span>
+                    <span className="flex-1 pr-2">{projects[currentProjectIndex].title}</span>
                     <a 
-                      href={project.link} 
+                      href={projects[currentProjectIndex].link} 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="flex items-center gap-1 text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition flex-shrink-0"
                     >
-                      Link <ExternalLink size={14} className="sm:w-4 sm:h-4" />
+                      <ExternalLink size={14} className="sm:w-4 sm:h-4" />
                     </a>
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed font-light">
-                    {project.description}
+                    {projects[currentProjectIndex].description}
                   </p>
                   
                   <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {project.tech.map((tech) => (
+                    {projects[currentProjectIndex].tech.map((tech) => (
                       <span key={tech} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs tracking-wide">
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            ))}
+              </div> */}
           </div>
+          <ProjectCarousel />
         </div>
       </section>
 
