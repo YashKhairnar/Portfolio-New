@@ -86,14 +86,26 @@ export function ProjectCarousel() {
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+  if (!emblaApi) return;
 
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+  const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+  const onInit = () => {
     setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  };
 
-    return () => emblaApi.off("select", onSelect);
-  }, [emblaApi]);
+  // Initialize + listen
+  onInit();
+  emblaApi.on("select", onSelect);
+  emblaApi.on("reInit", onInit);
+
+  // ✅ Cleanup must return void
+  return () => {
+    emblaApi.off("select", onSelect);
+    emblaApi.off("reInit", onInit);
+  };
+}, [emblaApi]);
+
 
   return (
     <div className="w-full flex flex-col items-center">
