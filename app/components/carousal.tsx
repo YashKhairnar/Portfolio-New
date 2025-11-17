@@ -5,7 +5,16 @@ import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    index: 0,
+    index : 0,
+    title: "Agies",
+    link: "https://github.com/YashKhairnar/Agies",
+    photo: "Agies.png",
+    description:
+      "An AI-powered automated bug fixing agent that analyzes Sentry errors, identifies problematic code, proposes fixes, tests them in a sandbox environment, and creates draft pull requests.",
+    tech: ["Agentic AI","LangGraph", "Streamlit", "Sentry", "CodeRabbit", "Daytone Sandbox", "Github API"],
+  },
+  {
+    index: 1,
     title: "AetherForge",
     link: "https://www.loom.com/share/0916e2bfdd9e4918a204b51bcea43627",
     photo: "AetherForge.png",
@@ -14,7 +23,7 @@ const projects = [
     tech: ["CrewAI", "Agentic Workflow", "Automerge", "React.js"],
   },
   {
-    index: 1,
+    index: 2,
     title: "CuriosityAI",
     link: "https://vimeo.com/1130720129?share=copy&fl=sv&fe=ci",
     photo: "curiosityAI.png",
@@ -30,7 +39,7 @@ const projects = [
     ],
   },
   {
-    index: 2,
+    index: 3,
     title: "ResuMatch",
     link: "https://drive.google.com/file/d/14aywsnvRjfeiIVkjFd6e3aDEQWGt9f9K/view",
     photo: "Resumatch.png",
@@ -39,7 +48,7 @@ const projects = [
     tech: ["Next.js", "Tavily", "Reinforcement Learning", "LangGraph", "Git", "Flask"],
   },
   {
-    index: 3,
+    index: 4,
     title: "Slique",
     link: "https://www.slique.vercel.app",
     photo: "Slique.png",
@@ -48,7 +57,7 @@ const projects = [
     tech: ["Next.js", "TailwindCSS", "FastAPI", "PostgreSQL", "AWS RDS", "Git"],
   },
   {
-    index: 4,
+    index: 5,
     title: "Image Colorizer",
     link: "https://github.com/YashKhairnar/ImageColorizer",
     photo: "Image_Colorizer.jpg",
@@ -57,7 +66,7 @@ const projects = [
     tech: ["Flask", "HTML/CSS", "NumPy", "OpenCv", "GAN", "Model Finetuning"],
   },
   {
-    index: 5,
+    index: 6,
     title: "4Bit",
     link: "https://github.com/YashKhairnar/4BIT",
     photo: "Genetic-code.jpg",
@@ -66,7 +75,7 @@ const projects = [
     tech: ["Python", "Keras", "Tensorflow", "Multi Omics", "Biomarkers", "Genetic Mutations"],
   },
   {
-    index: 6,
+    index: 7,
     title: "Roomie Radar",
     link: "https://github.com/YashKhairnar/RoomieRadar",
     photo: "roomieRadar.jpeg",
@@ -78,8 +87,8 @@ const projects = [
 
 export function ProjectCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: false, align: "start" },
-    [Autoplay({ delay: 3000, stopOnInteraction: false })]
+    { loop: true, align: "start" },
+    [Autoplay({ delay: 2000, stopOnInteraction: false })]
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -110,7 +119,7 @@ export function ProjectCarousel() {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Viewport */}
-      <div className="embla overflow-hidden w-full" ref={emblaRef}>
+      <div className="embla overflow-hidden w-full shadow-2xl border rounded-lg p-4 bg-blue-100" ref={emblaRef}>
         <div className="embla__container flex gap-4 px-4 sm:px-6 md:px-8">
           {projects.map((project) => (
             <div

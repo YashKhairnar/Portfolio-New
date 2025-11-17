@@ -77,7 +77,7 @@ const Portfolio = () => {
 
   const skills = [
     { name: "Machine Learning and AI", icon: Brain, tech: "Regression, Classification, Support Vector Machines, Decision Trees, Hidden Markov Models, Random Forest, Ensemble Learning, Dimensionality Reduction, Unsupervised Learning, Deep Learning, Computer Vision, Transformers, Auto-encoders & GANs, Natural Language Processing, RL Algorithms, Time series data analysis" },
-    { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, ROS, Scikit-Learn, NumPy, Pandas, Matplotlib, React, Express, Node.js, Next.js, Flask, spaCy, NLTK, LangChain, Streamlit" },
+    { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, ROS, Scikit-Learn, NumPy, Pandas, Matplotlib, React, Express, Node.js, Next.js, Flask, spaCy, NLTK, LangChain, Streamlit, CrewAI" },
     { name: "Databases & libraries", icon: Rocket, tech: "MySQL, SQL Alchemy, MongoDB, Mongoose, PostgreSQL, Prisma, Redis, AWS DynamoDB"},
     { name: "Cloud & DevOps", icon: Cloud, tech: "AWS (EC2, RDS, Amplify, API Gateway, Cognito), Cloudflare, Git, Docker, Nginx, Kubernetes" },
     { name: "Programming Languages", icon: Code, tech: "Python, C++, JavaScript, TypeScript, Go, HTML/CSS" },
@@ -306,67 +306,83 @@ const Portfolio = () => {
         </div>
 
         {/* 🟦 Hero Content */}
-        <div className="text-center space-y-6 sm:space-y-8 px-4 sm:px-6 max-w-5xl relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
           <div
             className={`transition-all duration-1000 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.indigo.600),theme(colors.cyan.500),theme(colors.teal.500),theme(colors.emerald.500),theme(colors.lime.500),theme(colors.yellow.500),theme(colors.amber.500))] dark:bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient">
-              Software Developer
-              <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 font-light tracking-tight text-slate-600 dark:text-slate-300">
-                AI/ML
-                <span
-                  aria-hidden="true"
-                  className="mx-1 sm:mx-2 align-baseline text-slate-600 dark:text-slate-300"
-                >
-                  ×
-                </span>
-                Full-stack
-              </span>
-            </h1>
-          
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2">
-              Researching and building applications that solve real-world problems.
-            </p>
-            
-            <InternshipStatus />
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Text Content */}
+              <div className="text-center lg:text-left space-y-6 sm:space-y-8 order-2 lg:order-1">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-black dark:bg-clip-text dark:text-transparent dark:bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] dark:bg-[length:200%_auto] dark:animate-gradient">
+                  Software Developer
+                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 font-light tracking-tight text-slate-600 dark:text-slate-300">
+                    AI/ML
+                    <span
+                      aria-hidden="true"
+                      className="mx-1 sm:mx-2 align-baseline text-slate-600 dark:text-slate-300"
+                    >
+                      ×
+                    </span>
+                    Full-stack
+                  </span>
+                </h1>
+              
+                <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                  Researching and building applications that solve real-world problems.
+                </p>
+                
+                <InternshipStatus />
 
-            <div className="flex justify-center space-x-6 sm:space-x-8 pt-6 sm:pt-10">
-            {[
-              { 
-                href: 'https://github.com/YashKhairnar',
-                label: 'GitHub',
-                color: 'hover:text-gray-900 dark:hover:text-gray-100'
-              },
-              { 
-                href: 'https://www.linkedin.com/in/yashkhairnar11/',
-                label: 'LinkedIn',
-                color: 'hover:text-blue-600 dark:hover:text-blue-400'
-              },
-              { 
-                href: 'https://x.com/I_esoteric',
-                label: 'Twitter/X',
-                color: 'hover:text-sky-500 dark:hover:text-sky-400'
-              },
-              { 
-                href: 'mailto:yashkvk7@gmail.com',
-                label: 'Email',
-                color: 'hover:text-red-500 dark:hover:text-red-400'
-              }
-            ].map((social, index) => {
-              return (
-                <SocialIcon
-                    key={index}
-                    url={social.href}
-                    target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                    rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                    className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
-                    aria-label={social.label}
+                <div className="flex justify-center lg:justify-start space-x-6 sm:space-x-8 pt-6 sm:pt-10">
+                {[
+                  { 
+                    href: 'https://github.com/YashKhairnar',
+                    label: 'GitHub',
+                    color: 'hover:text-gray-900 dark:hover:text-gray-100'
+                  },
+                  { 
+                    href: 'https://www.linkedin.com/in/yashkhairnar11/',
+                    label: 'LinkedIn',
+                    color: 'hover:text-blue-600 dark:hover:text-blue-400'
+                  },
+                  { 
+                    href: 'https://x.com/I_esoteric',
+                    label: 'Twitter/X',
+                    color: 'hover:text-sky-500 dark:hover:text-sky-400'
+                  },
+                  { 
+                    href: 'mailto:yashkvk7@gmail.com',
+                    label: 'Email',
+                    color: 'hover:text-red-500 dark:hover:text-red-400'
+                  }
+                ].map((social, index) => {
+                  return (
+                    <SocialIcon
+                        key={index}
+                        url={social.href}
+                        target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                        rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
+                        className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
+                        aria-label={social.label}
+                      />
+                  );
+                })}
+              </div>
+              </div>
+
+              {/* Photo Content */}
+              <div className="flex items-center justify-center order-1 lg:order-2">
+                <div className="relative w-full max-w-sm mx-auto lg:max-w-md">
+                  <img 
+                    src="/Yash.jpeg" 
+                    alt="Profile Picture" 
+                    className="rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover border-4 border-gray-200 dark:border-gray-700 shadow-lg"
                   />
-              );
-            })}
-          </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       
@@ -380,13 +396,13 @@ const Portfolio = () => {
             About me
           </h2>
           
-          <div className="grid lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 items-start">
+          <div>
             <div className="space-y-6 sm:space-y-8 lg:col-span-2 text-justify">
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries. I love to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
+                The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries. I like to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
               </p>
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                I hold a Bachelor's in Computer Engineering from Pune University and am currently pursuing an M.S. in Computer Science at San José State University.
+                I hold a Bachelor's in Computer Engineering from Pune University and I'm currently pursuing a <b>M.S. in Computer Science</b> at San José State University.
               </p>
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
                 My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, Natural Language Processing, and multimodal AI. Beyond AI, I'm proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools (Docker, Kubernetes).
@@ -394,14 +410,6 @@ const Portfolio = () => {
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
                 As a software engineer, I'm dedicated to building impactful applications that solve real-world problems. My focus is on advancing machine learning and multimodal AI, integrating these technologies to drive innovation and deliver value.
               </p>
-            </div>
-            
-            <div className="relative order-first lg:order-last">
-              <div className="border border-gray-200 dark:border-gray-700 rounded-md flex items-center justify-center max-w-xs mx-auto lg:max-w-none">
-                <div className="text-center">
-                  <img src="Yash.jpeg" alt="Profile Picture" className="w-full h-auto"/>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -470,42 +478,6 @@ const Portfolio = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
             My Projects
           </h2>
-          
-          <div className='flex flex-row gap-6 sm:gap-8  w-2/4 mx-auto'>
-              {/* <div 
-                key={currentProjectIndex}
-                className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:shadow-sm dark:hover:shadow-lg"
-              >
-                <div className="bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                  <img src={projects[currentProjectIndex].photo || " "} alt="Display Image" />
-                </div>
-                
-                <div className="p-4 sm:p-6 lg:p-8">
-                  <h3 className="flex items-start sm:items-center justify-between text-base sm:text-lg font-medium mb-3 sm:mb-4 text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                    <span className="flex-1 pr-2">{projects[currentProjectIndex].title}</span>
-                    <a 
-                      href={projects[currentProjectIndex].link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="flex items-center gap-1 text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition flex-shrink-0"
-                    >
-                      <ExternalLink size={14} className="sm:w-4 sm:h-4" />
-                    </a>
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed font-light">
-                    {projects[currentProjectIndex].description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {projects[currentProjectIndex].tech.map((tech) => (
-                      <span key={tech} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs tracking-wide">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div> */}
-          </div>
           <ProjectCarousel />
         </div>
       </section>

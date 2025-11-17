@@ -1,6 +1,6 @@
 export default function InternshipStatus() {
   return (
-    <div className="flex items-center justify-center p-4">
+    <div className="flex items-center justify-center p-2">
       <div className="relative">
         {/* Glowing background effect */}
         <div className="absolute inset-0 bg-emerald-200 blur-xl opacity-40 animate-pulse" />
