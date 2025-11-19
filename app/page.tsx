@@ -184,10 +184,9 @@ const Portfolio = () => {
                   <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Open for research collaborations</span>
                 </motion.div>
 
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight h-[160px] sm:h-[180px] lg:h-[200px] flex flex-col justify-center">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight h-[60px] sm:h-[80px] lg:h-[90px] flex flex-col justify-center">
                   <Typewriter
-                    words={["Machine Learning", "Artificial Intelligence", "Deep Learning", "Full Stack Development"]}
-                   
+                    words={["Machine Learning", "Artificial Intelligence", "Deep Learning"]}
                   />
                 </h1>
 
