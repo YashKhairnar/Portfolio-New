@@ -5,13 +5,13 @@ import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    index : 0,
+    index: 0,
     title: "Agies",
     link: "https://github.com/YashKhairnar/Agies",
     photo: "Agies.png",
     description:
       "An AI-powered automated bug fixing agent that analyzes Sentry errors, identifies problematic code, proposes fixes, tests them in a sandbox environment, and creates draft pull requests.",
-    tech: ["Agentic AI","LangGraph", "Streamlit", "Sentry", "CodeRabbit", "Daytone Sandbox", "Github API"],
+    tech: ["Agentic AI", "LangGraph", "Streamlit", "Sentry", "CodeRabbit", "Daytone Sandbox", "Github API"],
   },
   {
     index: 1,
@@ -95,31 +95,31 @@ export function ProjectCarousel() {
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   useEffect(() => {
-  if (!emblaApi) return;
+    if (!emblaApi) return;
 
-  const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
-  const onInit = () => {
-    setScrollSnaps(emblaApi.scrollSnapList());
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  };
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    const onInit = () => {
+      setScrollSnaps(emblaApi.scrollSnapList());
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
 
-  // Initialize + listen
-  onInit();
-  emblaApi.on("select", onSelect);
-  emblaApi.on("reInit", onInit);
+    // Initialize + listen
+    onInit();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onInit);
 
-  // ✅ Cleanup must return void
-  return () => {
-    emblaApi.off("select", onSelect);
-    emblaApi.off("reInit", onInit);
-  };
-}, [emblaApi]);
+    // ✅ Cleanup must return void
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onInit);
+    };
+  }, [emblaApi]);
 
 
   return (
     <div className="w-full flex flex-col items-center">
       {/* Viewport */}
-      <div className="embla overflow-hidden w-full shadow-2xl border rounded-lg p-4 bg-blue-100" ref={emblaRef}>
+      <div className="embla overflow-hidden w-full" ref={emblaRef}>
         <div className="embla__container flex gap-4 px-4 sm:px-6 md:px-8">
           {projects.map((project) => (
             <div
@@ -185,11 +185,10 @@ export function ProjectCarousel() {
           <button
             key={index}
             onClick={() => emblaApi?.scrollTo(index)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              index === selectedIndex
-                ? "bg-indigo-600 dark:bg-indigo-400 scale-110"
-                : "bg-zinc-400 dark:bg-zinc-600 hover:bg-zinc-500 dark:hover:bg-zinc-500"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === selectedIndex
+              ? "bg-indigo-600 dark:bg-indigo-400 scale-110"
+              : "bg-zinc-400 dark:bg-zinc-600 hover:bg-zinc-500 dark:hover:bg-zinc-500"
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

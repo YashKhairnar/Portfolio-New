@@ -8,6 +8,7 @@ type Particle = {
   vy: number;
   size: number;
   opacity: number;
+  targetOpacity: number;
 };
 
 export default function BackgroundParticles() {
@@ -21,7 +22,6 @@ export default function BackgroundParticles() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Handle HiDPI for crisp dots
     const setSize = () => {
       const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
       const { innerWidth: w, innerHeight: h } = window;
@@ -34,35 +34,44 @@ export default function BackgroundParticles() {
     setSize();
 
     const particles: Particle[] = [];
-    const particleCount = 40;
+    const particleCount = 50; // Increased count for better density
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        size: Math.random() * 1 + 0.5,
-        opacity: Math.random() * 0.15 + 0.05,
+        vx: (Math.random() - 0.5) * 0.15, // Slower movement
+        vy: (Math.random() - 0.5) * 0.15,
+        size: Math.random() * 1.5 + 0.5,
+        opacity: 0,
+        targetOpacity: Math.random() * 0.3 + 0.1,
       });
     }
 
     const animate = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
+      // Check theme for color
+      const isDark = document.documentElement.classList.contains('dark');
+
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
+
+        // Fade in/out effect
+        if (p.opacity < p.targetOpacity) p.opacity += 0.005;
 
         if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
         if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        // Use different colors based on theme
-        const isDark = document.documentElement.classList.contains('dark');
-        const color = isDark ? `rgba(107, 114, 128, ${p.opacity})` : `rgba(156, 163, 175, ${p.opacity})`; // gray-500 for dark, slate-400 for light
-        ctx.fillStyle = color;
+
+        const r = isDark ? 148 : 51;  // slate-400 vs slate-800
+        const g = isDark ? 163 : 65;
+        const b = isDark ? 184 : 85;
+
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${p.opacity})`;
         ctx.fill();
       }
 
@@ -83,7 +92,7 @@ export default function BackgroundParticles() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-10 pointer-events-none"
+      className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-1000"
       aria-hidden="true"
     />
   );

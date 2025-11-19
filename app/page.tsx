@@ -1,43 +1,37 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Brain, Zap, Rocket, Cloud, Award, Trophy, Users, Icon } from 'lucide-react';
+import { Brain, Zap, Rocket, Cloud, Code, Trophy, Users, ArrowRight, Mail, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 import BackgroundParticles from './components/background';
 import InternshipStatus from './components/notification';
-import ThemeToggle from './components/ThemeToggle';
-import { useTheme } from './contexts/ThemeContext';
 import { SocialIcon } from 'react-social-icons';
-import { ProjectCarousel } from './components/carousal';  
+import { ProjectCarousel } from './components/carousal';
+import Typewriter from './components/typewriter';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
+import Section from './components/ui/section';
+import { cn } from '@/app/utils/cn';
 
 const Portfolio = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  const { theme } = useTheme();
 
-  // Mouse tracking
+  // Mouse tracking for cursor effect
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Load animation
-  useEffect(() => {
-    setTimeout(() => setIsLoaded(true), 300);
   }, []);
 
   // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'blog', 'achievements', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'];
+      const scrollPosition = window.scrollY + 150;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -50,37 +44,29 @@ const Portfolio = () => {
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleFormSubmit = async () => {
-    setIsFormSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsFormSubmitting(false);
-    setFormSubmitted(true);
-    
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 3000);
-  };
-
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false); // Close mobile menu when navigating
+  };
+
+  const handleFormSubmit = async () => {
+    setIsFormSubmitting(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsFormSubmitting(false);
+    setFormSubmitted(true);
+    setTimeout(() => setFormSubmitted(false), 3000);
   };
 
   const skills = [
-    { name: "Machine Learning and AI", icon: Brain, tech: "Regression, Classification, Support Vector Machines, Decision Trees, Hidden Markov Models, Random Forest, Ensemble Learning, Dimensionality Reduction, Unsupervised Learning, Deep Learning, Computer Vision, Transformers, Auto-encoders & GANs, Natural Language Processing, RL Algorithms, Time series data analysis" },
-    { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, ROS, Scikit-Learn, NumPy, Pandas, Matplotlib, React, Express, Node.js, Next.js, Flask, spaCy, NLTK, LangChain, Streamlit, CrewAI" },
-    { name: "Databases & libraries", icon: Rocket, tech: "MySQL, SQL Alchemy, MongoDB, Mongoose, PostgreSQL, Prisma, Redis, AWS DynamoDB"},
-    { name: "Cloud & DevOps", icon: Cloud, tech: "AWS (EC2, RDS, Amplify, API Gateway, Cognito), Cloudflare, Git, Docker, Nginx, Kubernetes" },
-    { name: "Programming Languages", icon: Code, tech: "Python, C++, JavaScript, TypeScript, Go, HTML/CSS" },
+    { name: "Machine Learning & AI", icon: Brain, tech: "Regression, Classification, SVM, Decision Trees, Random Forest, Deep Learning, CNNs, Transformers, NLP, RL, GANs" },
+    { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, Scikit-Learn, NumPy, Pandas, React, Node.js, Next.js, Flask, LangChain" },
+    { name: "Databases", icon: Rocket, tech: "MySQL, MongoDB, PostgreSQL, Redis, DynamoDB" },
+    { name: "Cloud & DevOps", icon: Cloud, tech: "AWS (EC2, RDS, Amplify), Docker, Kubernetes, Git, Nginx" },
+    { name: "Languages", icon: Code, tech: "Python, C++, JavaScript, TypeScript, Go, HTML/CSS" },
   ];
 
   const experiences = [
@@ -90,9 +76,9 @@ const Portfolio = () => {
       duration: "July 2024 - June 2025",
       location: "Pune, India",
       achievements: [
-        "Led a team of 6 in developing a remote generator monitoring system with anomaly detection, remaining useful life prediction, and predictive maintenance models, achieving 93% accuracy on 500+ hours of operational data",
-        "Built an ANPR application using YOLOv11 and PaddleOCR with preprocessing pipelines, improving plate detection and text extraction to 97% accuracy",
-        "Eliminated 100% of manual intervention in LPG cylinder inspection by designing a ROS-based pre-filling pipeline with NVIDIA Triton Server, YOLO for defect detection, and EasyOCR for text extraction, producing 93% model"
+        "Led a team of 6 in developing a remote generator monitoring system with anomaly detection, achieving 93% accuracy.",
+        "Built an ANPR application using YOLOv11 and PaddleOCR, improving plate detection to 97% accuracy.",
+        "Designed a ROS-based pre-filling pipeline for LPG cylinders, eliminating manual intervention."
       ],
     },
     {
@@ -101,9 +87,9 @@ const Portfolio = () => {
       duration: "Aug 2023 - Nov 2023",
       location: "Pune, India",
       achievements: [
-       "Automated an anomaly detection pipeline for copper coils by leveraging PatchCore and YOLO for defect identification and object tracking, with image compression to optimize performance",
-       "Engineered a real-time video streaming pipeline (Flask, React, Node.js, Express) with inference latency to 50ms, enabling smooth end-to-end deployment",
-       "Researched and evaluated pathfinding and collision avoidance algorithms for an autonomous boat navigation system"
+        "Automated anomaly detection for copper coils using PatchCore and YOLO.",
+        "Engineered a real-time video streaming pipeline with 50ms latency.",
+        "Researched pathfinding algorithms for autonomous boat navigation."
       ],
     },
     {
@@ -112,9 +98,9 @@ const Portfolio = () => {
       duration: "Nov 2022 - Feb 2023",
       location: "Bengaluru, India",
       achievements: [
-        "Built scalable computer vision systems including face recognition attendance (95% accuracy) and freezer space estimation (90% + accuracy, +30% efficiency), integrating with real-time pipelines",
-        "Engineered OCR and text-processing workflows for resume parsing, improving extraction accuracy by 85% and automating 70% of manual data entry",
-        "Developed and deployed YOLO models for industrial automation, achieving 92%+ detection accuracy and streamlining inventory tracking through end-to-end ML pipelines"
+        "Built scalable computer vision systems for face recognition and space estimation.",
+        "Engineered OCR workflows for resume parsing, improving accuracy by 85%.",
+        "Deployed YOLO models for industrial automation with 92%+ accuracy."
       ]
     },
   ];
@@ -125,8 +111,8 @@ const Portfolio = () => {
       icon: Trophy,
       items: [
         {
-          title: "Best Student Award - International Institute of Information Technology",
-          description: "Recognized for both academic and extra-curricular performance throughtout the 4 years of undergraduation",
+          title: "Best Student Award - IIIT",
+          description: "Recognized for academic and extra-curricular excellence throughout 4 years.",
           date: "March 2024"
         },
       ]
@@ -137,12 +123,12 @@ const Portfolio = () => {
       items: [
         {
           title: "Project Lead",
-          description: "Led cross-functional team of 6 engineers in developing industrial ML solutions, managing project timelines and deliverables",
+          description: "Led cross-functional team of 6 engineers in developing industrial ML solutions.",
           date: "2024"
         },
         {
-          title: "Chairman - CESA ( I2IT )",
-          description: "Led diverse technical and social programming to give students broad exposure to technology, leadership, and community engagement.",
+          title: "Chairman - CESA (I2IT)",
+          description: "Led technical and social programming for student development.",
           date: "2023-2024"
         },
       ]
@@ -150,518 +136,309 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-x-hidden transition-colors duration-300">
-      {/* Minimal Cursor */}
-      <div 
-        className="fixed w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full pointer-events-none z-50 transition-transform duration-150"
-        style={{ 
-          left: mousePosition.x, 
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 overflow-x-hidden selection:bg-sky-500/30">
+      {/* Custom Cursor */}
+      <div
+        className="fixed w-6 h-6 border border-slate-400 dark:border-slate-500 rounded-full pointer-events-none z-[100] transition-transform duration-100 mix-blend-difference hidden sm:block"
+        style={{
+          left: mousePosition.x,
           top: mousePosition.y,
           transform: 'translate(-50%, -50%)'
         }}
       />
-      
-      {/* Particle Canvas */}
-     <BackgroundParticles />
-     
-      {/* Minimal Navigation */}
-       <nav className="fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm border-gray-100 dark:border-gray-800 hover:bg-white/80 dark:hover:bg-gray-900/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-5 flex justify-between items-center">
-          {/* Logo / Name */}
-          <button
-            onClick={() => scrollToSection('home')}
-            className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 px-2 sm:px-3 py-1"
-          >
-            Yash <span className="text-sky-900 dark:text-sky-400 font-bold">Khairnar</span>
-          </button>
+      <div
+        className="fixed w-1 h-1 bg-slate-900 dark:bg-slate-100 rounded-full pointer-events-none z-[100] hidden sm:block"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+          transform: 'translate(-50%, -50%)'
+        }}
+      />
 
-          {/* Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-10">
-            {['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'].map(
-              (section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize relative text-sm font-medium transition-all duration-300 ${
-                    activeSection === section
-                      ? 'text-slate-900 dark:text-slate-100'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                  }`}
-                >
-                  {section}
-                  {/* Active underline accent */}
-                  <span
-                    className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
-                      activeSection === section
-                        ? 'w-6 bg-sky-900 dark:bg-sky-400'
-                        : 'w-0 bg-sky-900/0 dark:bg-sky-400/0 group-hover:w-6'
-                    }`}
-                  />
-                </button>
-              )
-            )}
-
-            {/* Blog Link */}
-            {/* <a
-              href="/blog"
-              className="relative text-sm font-medium text-orange-500 hover:text-orange-600 transition-all duration-300 animate-pulse font-semibold px-2 sm:px-3 py-1 rounded-md shadow-[0_0_10px_rgba(249,115,22,0.5)] hover:shadow-[0_0_20px_rgba(249,115,22,0.8)]"
-            >
-              Blog
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 w-0 bg-orange-500/0 group-hover:w-6" />
-            </a> */}
-
-            {/* Theme Toggle */}
-            <ThemeToggle />
-            
-            {/* Resume Button */}
-            <a
-              href="/Yash_Khairnar_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 font-medium bg-sky-900 dark:bg-sky-800 text-white text-xs sm:text-sm hover:bg-sky-800 dark:hover:bg-sky-700 transition-colors duration-300"
-            >
-              Resume
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-2">
-            <ThemeToggle />
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-            >
-              {isMobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg">
-            <div className="px-4 py-6 space-y-4">
-              {['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'].map(
-                (section) => (
-                  <button
-                    key={section}
-                    onClick={() => scrollToSection(section)}
-                    className={`block w-full text-left py-2 px-3 rounded-md text-sm font-medium transition-colors ${
-                      activeSection === section
-                        ? 'text-slate-900 dark:text-slate-100 bg-gray-100 dark:bg-gray-800'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-gray-50 dark:hover:bg-gray-800'
-                    }`}
-                  >
-                    {section.charAt(0).toUpperCase() + section.slice(1)}
-                  </button>
-                )
-              )}
-              
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
-                <a
-                  href="/blog"
-                  className="block w-full text-left py-2 px-3 rounded-md text-sm font-medium text-orange-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors"
-                >
-                  Blog
-                </a>
-                <a
-                  href="/Yash_Khairnar_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center py-2 px-3 rounded-md text-sm font-medium bg-sky-900 dark:bg-sky-800 text-white hover:bg-sky-800 dark:hover:bg-sky-700 transition-colors"
-                >
-                  Resume
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-
+      <BackgroundParticles />
+      <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
 
       {/* Hero Section */}
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center z-10 h-full w-full bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-300"
-      >
-        <div className="absolute inset-0">
-          <div
-            className="
-              relative h-full w-full
-              [&>div]:absolute [&>div]:h-full [&>div]:w-full
-              [&>div]:bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]
-              [&>div]:[background-size:16px_16px]
-              [&>div]:[mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]
-            "
-          >
-            <div></div>
-          </div>
+      <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-[40%] -left-[20%] w-[70%] h-[70%] rounded-full bg-sky-200/20 dark:bg-sky-900/20 blur-[100px]" />
+          <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-indigo-200/20 dark:bg-indigo-900/20 blur-[100px]" />
         </div>
 
-        {/* 🟦 Hero Content */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-          <div
-            className={`transition-all duration-1000 ${
-              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Text Content */}
-              <div className="text-center lg:text-left space-y-6 sm:space-y-8 order-2 lg:order-1">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-black dark:bg-clip-text dark:text-transparent dark:bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] dark:bg-[length:200%_auto] dark:animate-gradient">
-                  Software Developer
-                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 font-light tracking-tight text-slate-600 dark:text-slate-300">
-                    AI/ML
-                    <span
-                      aria-hidden="true"
-                      className="mx-1 sm:mx-2 align-baseline text-slate-600 dark:text-slate-300"
-                    >
-                      ×
-                    </span>
-                    Full-stack
-                  </span>
-                </h1>
-              
-                <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                  Researching and building applications that solve real-world problems.
-                </p>
-                
-                <InternshipStatus />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="space-y-8"
+            >
+              <div className="space-y-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm"
+                >
+                  <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                  <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Open for research collaborations</span>
+                </motion.div>
 
-                <div className="flex justify-center lg:justify-start space-x-6 sm:space-x-8 pt-6 sm:pt-10">
-                {[
-                  { 
-                    href: 'https://github.com/YashKhairnar',
-                    label: 'GitHub',
-                    color: 'hover:text-gray-900 dark:hover:text-gray-100'
-                  },
-                  { 
-                    href: 'https://www.linkedin.com/in/yashkhairnar11/',
-                    label: 'LinkedIn',
-                    color: 'hover:text-blue-600 dark:hover:text-blue-400'
-                  },
-                  { 
-                    href: 'https://x.com/I_esoteric',
-                    label: 'Twitter/X',
-                    color: 'hover:text-sky-500 dark:hover:text-sky-400'
-                  },
-                  { 
-                    href: 'mailto:yashkvk7@gmail.com',
-                    label: 'Email',
-                    color: 'hover:text-red-500 dark:hover:text-red-400'
-                  }
-                ].map((social, index) => {
-                  return (
-                    <SocialIcon
-                        key={index}
-                        url={social.href}
-                        target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                        rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                        className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
-                        aria-label={social.label}
-                      />
-                  );
-                })}
-              </div>
-              </div>
-
-              {/* Photo Content */}
-              <div className="flex items-center justify-center order-1 lg:order-2">
-                <div className="relative w-full max-w-sm mx-auto lg:max-w-md">
-                  <img 
-                    src="/Yash.jpeg" 
-                    alt="Profile Picture" 
-                    className="rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover border-4 border-gray-200 dark:border-gray-700 shadow-lg"
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight h-[160px] sm:h-[180px] lg:h-[200px] flex flex-col justify-center">
+                  <Typewriter
+                    words={["Machine Learning", "Artificial Intelligence", "Deep Learning", "Full Stack Development"]}
+                   
                   />
-                </div>
+                </h1>
+
+                <p className="text-xl sm:text-2xl font-light text-slate-600 dark:text-slate-300 max-w-xl">
+                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML</span>
+                </p>
               </div>
-            </div>
+
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                Advancing the frontier of Machine Learning and Intelligent Systems
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => scrollToSection('projects')}
+                  className="px-8 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center gap-2"
+                >
+                  View Work <ArrowRight size={18} />
+                </button>
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="px-8 py-3 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-medium"
+                >
+                  Contact Me
+                </button>
+              </div>
+
+              <InternshipStatus />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative lg:h-[600px] flex items-center justify-center"
+            >
+              <div className="relative w-72 h-72 sm:w-96 sm:h-96">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-500 blur-2xl opacity-20 animate-pulse" />
+                <img
+                  src="/Yash.jpeg"
+                  alt="Yash Khairnar"
+                  className="relative w-full h-full object-cover rounded-full border-2 border-white/20 dark:border-white/10 shadow-2xl"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
-      
       </section>
-
 
       {/* About Section */}
-      <section id="about" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            About me
-          </h2>
-          
+      <Section id="about" className="bg-slate-50/50 dark:bg-slate-900/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="space-y-6 sm:space-y-8 lg:col-span-2 text-justify">
-              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">About Me</h2>
+            <div className="space-y-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p>
                 The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries. I like to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
               </p>
-              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                I hold a Bachelor's in Computer Engineering from Pune University and I'm currently pursuing a <b>M.S. in Computer Science</b> at San José State University.
+              <p>
+                I hold a Bachelor's in Computer Engineering from Pune University and I'm currently pursuing a <span className="font-semibold text-slate-900 dark:text-white">M.S. in Computer Science</span> at San José State University.
               </p>
-              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, Natural Language Processing, and multimodal AI. Beyond AI, I'm proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools (Docker, Kubernetes).
-              </p>
-              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                As a software engineer, I'm dedicated to building impactful applications that solve real-world problems. My focus is on advancing machine learning and multimodal AI, integrating these technologies to drive innovation and deliver value.
+              <p>
+                My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, NLP, and multimodal AI. Beyond AI, I'm proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools.
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            Experience
-          </h2>
-          
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700"></div>
-            
-            <div className="space-y-12 sm:space-y-16">
-              {experiences.map((exp, index) => (
-                <div key={index} className="relative pl-16 sm:pl-20">
-                  {/* Timeline dot */}
-                  <div className="absolute left-4 sm:left-6 w-3 h-3 sm:w-4 sm:h-4 bg-white dark:bg-gray-800 border-2 border-gray-400 dark:border-gray-600 rounded-full -translate-x-1/2"></div>
-                  
-                  <div className="space-y-4">
-                    {/* Header */}
-                    <div className="space-y-2">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-gray-100">
-                          {exp.position}
-                        </h3>
-                        <span className="text-sm text-gray-500 dark:text-gray-400 tracking-wide">
-                          {exp.duration}
-                        </span>
-                      </div>
-                      <div className="flex flex-col md:flex-row md:items-center space-y-1 md:space-y-0 md:space-x-4">
-                        <span className="text-base text-gray-700 dark:text-gray-300 font-medium">
-                          {exp.company}
-                        </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                          {exp.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Achievements */}
-                    <div className="space-y-2">
-                      {exp.achievements.map((achievement, achIndex) => (
-                        <div key={achIndex} className="flex items-start space-x-3 text-justify">
-                          <div className="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full mt-3 flex-shrink-0"></div>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                            {achievement}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            My Projects
-          </h2>
-          <ProjectCarousel />
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            Skills
-          </h2>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 text-justify">
-            {skills.map((skill, index) => {
-              const Icon = skill.icon;
-              return (
-                <div key={index} className="group">
-                  <div className="flex items-start space-x-3 sm:space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 dark:bg-gray-700 flex items-center justify-center mt-1 group-hover:bg-gray-200 dark:group-hover:bg-gray-600 transition-colors flex-shrink-0">
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg font-medium mb-2 text-gray-900 dark:text-gray-100">
-                        {skill.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                        {skill.tech}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Achievements & Leadership Section */}
-      <section id="achievements" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            Achievements & Leadership
-          </h2>
-          
-          <div className="space-y-8 sm:space-y-12">
-            {achievements.map((category, idx) => (
-              <div key={idx}>
-                {/* Category Header */}
-                <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-900 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
-                    <category.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-200" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-light text-gray-900 dark:text-gray-100 tracking-wide">
-                    {category.category}
-                  </h3>
-                </div>
-
-                {/* Timeline */}
-                <div className="relative pl-6 sm:pl-8">
-                  <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700"></div>
-                  
-                  <div className="space-y-6 sm:space-y-8">
-                    {category.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="relative">
-                        {/* Timeline dot */}
-                        <div className="absolute -left-6 sm:-left-8 w-2 h-2 sm:w-3 sm:h-3 bg-gray-400 dark:bg-gray-500 rounded-full transform translate-x-[-3px] sm:translate-x-[-4.5px] mt-2"></div>
-                        
-                        <div className="pl-6 sm:pl-8">
-                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-2">
-                            <h4 className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100">
-                              {item.title}
-                            </h4>
-                            <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-light whitespace-nowrap">
-                              {item.date}
-                            </span>
-                          </div>
-                          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                            {item.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Experience", value: "2+ Years" },
+              { label: "Projects", value: "15+" },
+              { label: "Research", value: "Active" },
+              { label: "Location", value: "San Jose, CA" }
+            ].map((stat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+                <h3 className="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-1">{stat.value}</h3>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
+
+      {/* Experience Section */}
+      <Section id="experience">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-16 text-center">Experience</h2>
+        <div className="relative max-w-3xl mx-auto">
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 transform md:-translate-x-1/2" />
+
+          {experiences.map((exp, index) => (
+            <div key={index} className={`relative mb-12 md:mb-16 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+              <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:ml-auto'} pl-12`}>
+                <div className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full border-4 border-white dark:border-slate-900 bg-sky-600 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 z-10`} />
+
+                <div className="group p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 hover:border-sky-500/30 transition-all shadow-sm hover:shadow-md">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{exp.position}</h3>
+                  <div className="text-sky-600 dark:text-sky-400 font-medium mb-2">{exp.company}</div>
+                  <div className="text-sm text-slate-500 dark:text-slate-400 mb-4">{exp.duration} | {exp.location}</div>
+                  <ul className={`space-y-2 text-sm text-slate-600 dark:text-slate-300 ${index % 2 === 0 ? 'md:text-right' : 'text-left'}`}>
+                    {exp.achievements.map((item, i) => (
+                      <li key={i} className="leading-relaxed opacity-90">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Projects Section */}
+      <Section id="projects" className="bg-slate-50/50 dark:bg-slate-900/50">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+        <ProjectCarousel />
+      </Section>
+
+      {/* Skills Section */}
+      <Section id="skills">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Technical Skills</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skills.map((skill, index) => {
+            const Icon = skill.icon;
+            return (
+              <motion.div
+                key={index}
+                whileHover={{ y: -5 }}
+                className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center mb-4 text-sky-600 dark:text-sky-400">
+                  <Icon size={24} />
+                </div>
+                <h3 className="text-lg font-bold mb-3">{skill.name}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {skill.tech.split(', ').map((tech, i) => (
+                    <span key={i} className="px-2 py-1 text-xs rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* Achievements Section */}
+      <Section id="achievements" className="bg-slate-50/50 dark:bg-slate-900/50">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Achievements</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          {achievements.map((category, idx) => (
+            <div key={idx} className="space-y-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900">
+                  <category.icon size={20} />
+                </div>
+                <h3 className="text-2xl font-bold">{category.category}</h3>
+              </div>
+              <div className="space-y-6">
+                {category.items.map((item, itemIdx) => (
+                  <div key={itemIdx} className="pl-6 border-l-2 border-slate-200 dark:border-slate-700 relative">
+                    <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-sky-500" />
+                    <h4 className="text-lg font-bold mb-1">{item.title}</h4>
+                    <span className="text-sm text-sky-600 dark:text-sky-400 mb-2 block">{item.date}</span>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-12 sm:mb-16 lg:mb-20 text-gray-900 dark:text-gray-100">
-            Let's Connect
-          </h2>
-          <div className="space-y-4 sm:space-y-6">
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-gray-700 dark:text-gray-300 tracking-wide">NAME</label>
-              <input 
-                type="text"
-                className="w-full px-0 py-2 sm:py-3 bg-transparent border-0 border-b border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-900 dark:focus:border-gray-100 transition-colors text-gray-900 dark:text-gray-100 text-sm sm:text-base"
-              />
+      <Section id="contact">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get in Touch</h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              Have a project in mind or just want to say hi? I'd love to hear from you.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Email Me</h3>
+                  <a href="mailto:yashkvk7@gmail.com" className="text-slate-600 dark:text-slate-300 hover:text-sky-600 transition-colors">
+                    yashkvk7@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                <p className="text-slate-600 dark:text-slate-300 italic">
+                  "The only way to do great work is to love what you do."
+                </p>
+                <p className="text-sm text-slate-500 mt-2">— Steve Jobs</p>
+              </div>
             </div>
-            
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-gray-700 dark:text-gray-300 tracking-wide">EMAIL</label>
-              <input 
-                type="email"
-                className="w-full px-0 py-2 sm:py-3 bg-transparent border-0 border-b border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-900 dark:focus:border-gray-100 transition-colors text-gray-900 dark:text-gray-100 text-sm sm:text-base"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-gray-700 dark:text-gray-300 tracking-wide">MESSAGE</label>
-              <textarea 
-                rows={3}
-                className="w-full px-0 py-2 sm:py-3 bg-transparent border-0 border-b border-gray-300 dark:border-gray-600 focus:outline-none focus:border-gray-900 dark:focus:border-gray-100 transition-colors resize-none text-gray-900 dark:text-gray-100 text-sm sm:text-base"
-              ></textarea>
-            </div>
-            
-            <div className="pt-6 sm:pt-8">
-              <button 
+
+            <form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Name</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Email</label>
+                <input
+                  type="email"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                  placeholder="john@example.com"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Message</label>
+                <textarea
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all resize-none"
+                  placeholder="Tell me about your project..."
+                ></textarea>
+              </div>
+
+              <button
+                type="button"
                 onClick={handleFormSubmit}
                 disabled={isFormSubmitting || formSubmitted}
-                className="w-full px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 dark:bg-gray-700 text-white font-medium transition-all duration-300 hover:bg-gray-800 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm tracking-wide"
+                className="w-full py-4 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isFormSubmitting ? 'SENDING...' : formSubmitted ? 'MESSAGE SENT' : 'SEND MESSAGE'}
+                {isFormSubmitting ? (
+                  'Sending...'
+                ) : formSubmitted ? (
+                  'Message Sent!'
+                ) : (
+                  <>Send Message <Send size={18} /></>
+                )}
               </button>
-            </div>
+            </form>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Footer */}
-      <footer className="py-12 sm:py-16 px-4 sm:px-6 border-t border-gray-200 dark:border-gray-800 relative z-10 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col items-center space-y-6">
-            {/* Social Media Links */}
-            <div className="flex space-x-4">
-              {[
-                { 
-                  href: 'https://github.com/YashKhairnar',
-                  label: 'GitHub',
-                  color: 'hover:text-gray-900 dark:hover:text-gray-100'
-                },
-                { 
-                  href: 'https://www.linkedin.com/in/yashkhairnar11/',
-                  label: 'LinkedIn',
-                  color: 'hover:text-blue-600 dark:hover:text-blue-400'
-                },
-                { 
-                  href: 'https://x.com/I_esoteric',
-                  label: 'Twitter/X',
-                  color: 'hover:text-sky-500 dark:hover:text-sky-400'
-                },
-                { 
-                  href: 'mailto:yashkvk7@gmail.com',
-                  label: 'Email',
-                  color: 'hover:text-red-500 dark:hover:text-red-400'
-                }
-              ].map((social, index) => (
-               <SocialIcon
-                  key={index}
-                  url={social.href}
-                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                  rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
-                  aria-label={social.label}
-                />
-              ))}
-            </div>
-            
-            {/* Copyright */}
-            <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 tracking-wide">
-              © 2025 Yash Khairnar. ALL RIGHTS RESERVED.
-            </p>
-            
-            {/* Additional Info */}
-            <p className="text-center text-xs text-gray-400 dark:text-gray-500">
-              Built with Next.js, Tailwind CSS, and ❤️
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
