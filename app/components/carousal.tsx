@@ -5,7 +5,15 @@ import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    index: 0,
+    index : 8,
+    title : 'ThinkFlow',
+    link : 'https://github.com/YashKhairnar/ThinkFlow',
+    photo : 'ThinkFlow.gif',
+    description : 'A model to convert raw EEG signal to text using transformers and contrastive learning.',
+    tech : ['PyTorch', 'Transformers', 'HuggingFace', 'BART', 'Contrastive learning', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
+  },
+  {
+    index: 7,
     title: "Agies",
     link: "https://github.com/YashKhairnar/Agies",
     photo: "Agies.png",
@@ -14,7 +22,7 @@ const projects = [
     tech: ["Agentic AI", "LangGraph", "Streamlit", "Sentry", "CodeRabbit", "Daytone Sandbox", "Github API"],
   },
   {
-    index: 1,
+    index: 6,
     title: "AetherForge",
     link: "https://www.loom.com/share/0916e2bfdd9e4918a204b51bcea43627",
     photo: "AetherForge.png",
@@ -23,7 +31,7 @@ const projects = [
     tech: ["CrewAI", "Agentic Workflow", "Automerge", "React.js"],
   },
   {
-    index: 2,
+    index: 5,
     title: "CuriosityAI",
     link: "https://vimeo.com/1130720129?share=copy&fl=sv&fe=ci",
     photo: "curiosityAI.png",
@@ -39,7 +47,7 @@ const projects = [
     ],
   },
   {
-    index: 3,
+    index: 4,
     title: "ResuMatch",
     link: "https://drive.google.com/file/d/14aywsnvRjfeiIVkjFd6e3aDEQWGt9f9K/view",
     photo: "Resumatch.png",
@@ -48,7 +56,7 @@ const projects = [
     tech: ["Next.js", "Tavily", "Reinforcement Learning", "LangGraph", "Git", "Flask"],
   },
   {
-    index: 4,
+    index: 3,
     title: "Slique",
     link: "https://www.slique.vercel.app",
     photo: "Slique.png",
@@ -57,7 +65,7 @@ const projects = [
     tech: ["Next.js", "TailwindCSS", "FastAPI", "PostgreSQL", "AWS RDS", "Git"],
   },
   {
-    index: 5,
+    index: 2,
     title: "Image Colorizer",
     link: "https://github.com/YashKhairnar/ImageColorizer",
     photo: "Image_Colorizer.jpg",
@@ -66,7 +74,7 @@ const projects = [
     tech: ["Flask", "HTML/CSS", "NumPy", "OpenCv", "GAN", "Model Finetuning"],
   },
   {
-    index: 6,
+    index: 1,
     title: "4Bit",
     link: "https://github.com/YashKhairnar/4BIT",
     photo: "Genetic-code.jpg",
@@ -75,20 +83,20 @@ const projects = [
     tech: ["Python", "Keras", "Tensorflow", "Multi Omics", "Biomarkers", "Genetic Mutations"],
   },
   {
-    index: 7,
+    index: 0,
     title: "Roomie Radar",
     link: "https://github.com/YashKhairnar/RoomieRadar",
     photo: "roomieRadar.jpeg",
     description:
       "Roommate matching app that uses preference-based compatibility scoring to suggest the best fits.",
     tech: ["Next.js", "Machine Learning"],
-  },
+  }
 ];
 
 export function ProjectCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
-    [Autoplay({ delay: 2000, stopOnInteraction: false })]
+    [Autoplay({ delay: 3000, stopOnInteraction: false })]
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
