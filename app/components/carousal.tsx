@@ -6,11 +6,11 @@ import { ExternalLink } from "lucide-react";
 const projects = [
   {
     index : 8,
-    title : 'ThinkFlow',
-    link : 'https://github.com/YashKhairnar/ThinkFlow',
-    photo : 'ThinkFlow.gif',
-    description : 'A model to convert raw EEG signal to text using transformers and contrastive learning.',
-    tech : ['PyTorch', 'Transformers', 'HuggingFace', 'BART', 'Contrastive learning', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
+    title : 'Malware Classification',
+    link : 'https://github.com/YashKhairnar/Malware-Classification',
+    photo : 'malware.png',
+    description : 'A comprehensive machine learning project for classifying malware samples into 12 different families',
+    tech : ['PyTorch', 'CNN', 'DenseNet121', 'SVM', 'Grid Search', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
   },
   {
     index: 7,
