@@ -5,12 +5,20 @@ import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    index : 8,
+    index : 9,
     title : 'Malware Classification',
     link : 'https://github.com/YashKhairnar/Malware-Classification',
     photo : 'malware.png',
     description : 'A comprehensive machine learning project for classifying malware samples into 12 different families',
     tech : ['PyTorch', 'CNN', 'DenseNet121', 'SVM', 'Grid Search', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
+  },
+  {
+    index : 8,
+    title : 'Sentinel',
+    link : 'https://dashboard.thesentinel.site',
+    photo : 'sentinel.png',
+    description : 'Serverless email marketing platform built on AWS with real-time analytics, AI-powered content generation, and multi-region deployment.',
+    tech : ['AWS Lambda', 'AWS S3', 'AWS API Gateway', 'DynamoDB', 'SQS', 'SNS', 'SES','Terraform', 'Next.js', 'GitHub Actions']
   },
   {
     index: 7,
