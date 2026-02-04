@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Calendar, Clock, ArrowLeft } from 'lucide-react';
 import BackgroundParticles from '../components/background';
-import ThemeToggle from '../components/ThemeToggle';
-import { useTheme } from '../contexts/ThemeContext';
 import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
 
@@ -16,8 +14,7 @@ export default function Blog() {
   const [blogPosts, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
-  
-  const { theme } = useTheme();
+
 
   // Fetch once on mount
   useEffect(() => {
@@ -67,7 +64,6 @@ export default function Blog() {
             </Link>
 
             <div className="flex items-center gap-4">
-              <ThemeToggle />
               <button
                 onClick={() => setSelectedPost(null)}
                 className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
@@ -154,7 +150,7 @@ export default function Blog() {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-4 sm:space-x-6">
-            <ThemeToggle />
+
             <Link
               href="/"
               className="text-xs sm:text-sm font-semibold text-orange-500 hover:text-orange-600 transition"
@@ -164,7 +160,7 @@ export default function Blog() {
           </div>
 
           <div className="lg:hidden flex items-center space-x-2">
-            <ThemeToggle />
+
             <button
               onClick={() => setIsMobileMenuOpen((s) => !s)}
               className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
@@ -261,22 +257,22 @@ export default function Blog() {
             {/* Social Media Links */}
             <div className="flex space-x-4">
               {[
-                { 
+                {
                   href: 'https://github.com/YashKhairnar',
                   label: 'GitHub',
                   color: 'hover:text-gray-900 dark:hover:text-gray-100'
                 },
-                { 
+                {
                   href: 'https://www.linkedin.com/in/yashkhairnar11/',
                   label: 'LinkedIn',
                   color: 'hover:text-blue-600 dark:hover:text-blue-400'
                 },
-                { 
+                {
                   href: 'https://x.com/I_esoteric',
                   label: 'Twitter/X',
                   color: 'hover:text-sky-500 dark:hover:text-sky-400'
                 },
-                { 
+                {
                   href: 'mailto:yashkvk7@gmail.com',
                   label: 'Email',
                   color: 'hover:text-red-500 dark:hover:text-red-400'
@@ -290,14 +286,14 @@ export default function Blog() {
                   className={`text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
                   aria-label={social.label}
                 >
-                  <SocialIcon 
-                    url={social.href} 
-                    className="h-5 w-5" 
+                  <SocialIcon
+                    url={social.href}
+                    className="h-5 w-5"
                   />
                 </a>
               ))}
             </div>
-            
+
             {/* Copyright */}
             <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400">© 2025 Yash Khairnar. ALL RIGHTS RESERVED.</p>
           </div>
