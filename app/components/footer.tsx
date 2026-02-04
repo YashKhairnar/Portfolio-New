@@ -11,7 +11,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="py-12 px-4 sm:px-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+        <footer className="py-12 px-4 sm:px-6 border-t border-orange-200/20 dark:border-slate-800 bg-orange-50/10 dark:bg-slate-900/50">
             <div className="max-w-4xl mx-auto flex flex-col items-center space-y-6">
                 <div className="flex space-x-6">
                     {socialLinks.map((social, index) => (

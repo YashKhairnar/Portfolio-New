@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
 import { cn } from '@/app/utils/cn';
 
 interface NavbarProps {
@@ -41,7 +40,7 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
                     onClick={() => scrollToSection('home')}
                     className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100"
                 >
-                    Yash <span className="text-sky-600 dark:text-sky-400">Khairnar</span>
+                    Yash <span className="text-orange-600 dark:text-orange-500">Khairnar</span>
                 </button>
 
                 {/* Desktop Navigation */}
@@ -53,20 +52,19 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
                             className={cn(
                                 "capitalize text-sm font-medium transition-colors duration-300 relative group",
                                 activeSection === section
-                                    ? "text-sky-600 dark:text-sky-400"
+                                    ? "text-orange-600 dark:text-orange-500"
                                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                             )}
                         >
                             {section}
                             <span className={cn(
-                                "absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-600 dark:bg-sky-400 transition-all duration-300 group-hover:w-full",
+                                "absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 dark:bg-orange-500 transition-all duration-300 group-hover:w-full",
                                 activeSection === section ? "w-full" : ""
                             )} />
                         </button>
                     ))}
 
                     <div className="flex items-center space-x-4 border-l border-slate-200 dark:border-slate-800 pl-4">
-                        <ThemeToggle />
                         <a
                             href="/Yash_Khairnar_Resume.pdf"
                             target="_blank"
@@ -80,7 +78,6 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
 
                 {/* Mobile Menu Button */}
                 <div className="lg:hidden flex items-center space-x-4">
-                    <ThemeToggle />
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className="text-slate-900 dark:text-slate-100 p-2"
@@ -110,7 +107,7 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
                                     className={cn(
                                         "block w-full text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors",
                                         activeSection === section
-                                            ? "bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400"
+                                            ? "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-500"
                                             : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
                                     )}
                                 >

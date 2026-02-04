@@ -14,6 +14,7 @@ type Particle = {
 export default function BackgroundParticles() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,7 +24,7 @@ export default function BackgroundParticles() {
     if (!ctx) return;
 
     const setSize = () => {
-      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      const dpr = window.devicePixelRatio || 1;
       const { innerWidth: w, innerHeight: h } = window;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
@@ -34,44 +35,72 @@ export default function BackgroundParticles() {
     setSize();
 
     const particles: Particle[] = [];
-    const particleCount = 50; // Increased count for better density
+    const particleCount = 60;
+    const connectionDistance = 150;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.15, // Slower movement
-        vy: (Math.random() - 0.5) * 0.15,
-        size: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        size: Math.random() * 2 + 0.5,
         opacity: 0,
-        targetOpacity: Math.random() * 0.3 + 0.1,
+        targetOpacity: Math.random() * 0.4 + 0.1,
       });
     }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Check theme for color
       const isDark = document.documentElement.classList.contains('dark');
+      const baseColor = isDark ? { r: 249, g: 115, b: 22 } : { r: 234, g: 88, b: 12 }; // orange-500 vs orange-600
 
-      for (const p of particles) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
 
-        // Fade in/out effect
         if (p.opacity < p.targetOpacity) p.opacity += 0.005;
 
         if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
         if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
 
+        // Mouse interaction
+        const dxMouse = p.x - mouseRef.current.x;
+        const dyMouse = p.y - mouseRef.current.y;
+        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+        if (distMouse < 200) {
+          const force = (200 - distMouse) / 2000;
+          p.vx += dxMouse * force * 0.02;
+          p.vy += dyMouse * force * 0.02;
+        }
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(${baseColor.r}, ${baseColor.g}, ${baseColor.b}, ${0.15 * (1 - dist / connectionDistance)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-
-        const r = isDark ? 148 : 51;  // slate-400 vs slate-800
-        const g = isDark ? 163 : 65;
-        const b = isDark ? 184 : 85;
-
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${p.opacity})`;
+        ctx.fillStyle = `rgba(${baseColor.r}, ${baseColor.g}, ${baseColor.b}, ${p.opacity})`;
         ctx.fill();
       }
 
@@ -86,13 +115,14 @@ export default function BackgroundParticles() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-1000"
+      className="fixed inset-0 -z-10 pointer-events-none"
       aria-hidden="true"
     />
   );

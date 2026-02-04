@@ -5,25 +5,17 @@
 :root {
   --background: #ffffff;
   --foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --muted: #fff7ed;
+  --muted-foreground: #c2410c;
   --card: #ffffff;
   --card-foreground: #0f172a;
-  --border: #e2e8f0;
-  --primary: #0f172a;
-  --primary-foreground: #f8fafc;
+  --border: #fed7aa;
+  --primary: #f97316;
+  --primary-foreground: #ffffff;
 }
 
 .dark {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --card: #020617;
-  --card-foreground: #f8fafc;
-  --border: #1e293b;
-  --primary: #f8fafc;
-  --primary-foreground: #020617;
+  /* Removed dark mode */
 }
 
 body {
@@ -36,20 +28,22 @@ body {
 
 @layer utilities {
   .glass {
-    @apply bg-white/70 dark:bg-black/70 backdrop-blur-lg border border-white/20 dark:border-white/10;
+    @apply bg-white/70 backdrop-blur-lg border border-white/20;
   }
-  
+
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-300 dark:to-white;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600;
   }
 }
 
 .embla {
   overflow: hidden;
 }
+
 .embla__container {
   display: flex;
 }
+
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;

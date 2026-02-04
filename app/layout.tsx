@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
-import { ThemeProvider } from './contexts/ThemeContext';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,8 +16,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yash Khairnar — Portfolio",
   description: "Applied ML × Full-stack: projects, papers, and contact.",
-  icons : {
-    icon : 'public/favicon.png'
+  icons: {
+    icon: 'public/favicon.png'
   }
 };
 
@@ -32,10 +31,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
-          {children}
-          <Analytics />
-        </ThemeProvider>
+        {children}
+        <Analytics />
       </body>
     </html>
   );

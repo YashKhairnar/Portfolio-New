@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Brain, Zap, Rocket, Cloud, Code, Trophy, Users, ArrowRight, Mail, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import BackgroundParticles from './components/background';
 import InternshipStatus from './components/notification';
 import { SocialIcon } from 'react-social-icons';
@@ -65,7 +65,7 @@ const Portfolio = () => {
     { name: "Machine Learning & AI", icon: Brain, tech: "Regression, Classification, SVM, Decision Trees, Random Forest, Deep Learning, CNNs, Transformers, NLP, RL, GANs" },
     { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, Scikit-Learn, NumPy, Pandas, React, Node.js, Next.js, Flask, LangChain" },
     { name: "Databases", icon: Rocket, tech: "MySQL, MongoDB, PostgreSQL, Redis, DynamoDB" },
-    { name: "Cloud & DevOps", icon: Cloud, tech: "AWS (EC2, RDS, Amplify), Docker, Kubernetes, Git, Nginx" },
+    { name: "Cloud & DevOps", icon: Cloud, tech: "AWS, EC2, RDS, Amplify, Docker, Kubernetes, Git, Nginx, Distributed Systems" },
     { name: "Languages", icon: Code, tech: "Python, C++, JavaScript, TypeScript, Go, HTML/CSS" },
   ];
 
@@ -136,7 +136,7 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 overflow-x-hidden selection:bg-sky-500/30">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 overflow-x-hidden selection:bg-orange-500/30">
       {/* Custom Cursor */}
       <div
         className="fixed w-6 h-6 border border-slate-400 dark:border-slate-500 rounded-full pointer-events-none z-[100] transition-transform duration-100 mix-blend-difference hidden sm:block"
@@ -161,8 +161,8 @@ const Portfolio = () => {
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-[40%] -left-[20%] w-[70%] h-[70%] rounded-full bg-sky-200/20 dark:bg-sky-900/20 blur-[100px]" />
-          <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-indigo-200/20 dark:bg-indigo-900/20 blur-[100px]" />
+          <div className="absolute -top-[40%] -left-[20%] w-[70%] h-[70%] rounded-full bg-orange-200/20 dark:bg-orange-900/20 blur-[100px]" />
+          <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-slate-200/20 dark:bg-slate-900/20 blur-[100px]" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
@@ -186,17 +186,17 @@ const Portfolio = () => {
 
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight h-[60px] sm:h-[80px] lg:h-[90px] flex flex-col justify-center">
                   <Typewriter
-                    words={["Machine Learning", "Artificial Intelligence", "Deep Learning"]}
+                    words={["Machine Learning", "Artificial Intelligence", "Deep Learning", "Full Stack"]}
                   />
                 </h1>
 
                 <p className="text-xl sm:text-2xl font-light text-slate-600 dark:text-slate-300 max-w-xl">
-                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML</span>
+                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML and DistributedSystems</span>
                 </p>
               </div>
 
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
-                Advancing the frontier of Machine Learning and Intelligent Systems
+                Building products that matter !
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -223,14 +223,16 @@ const Portfolio = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative lg:h-[600px] flex items-center justify-center"
             >
-              <div className="relative w-72 h-72 sm:w-96 sm:h-96">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-500 blur-2xl opacity-20 animate-pulse" />
-                <img
-                  src="/Yash.jpeg"
-                  alt="Yash Khairnar"
-                  className="relative w-full h-full object-cover rounded-full border-2 border-white/20 dark:border-white/10 shadow-2xl"
-                />
-              </div>
+              <TiltWrapper>
+                <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-500 to-orange-600 blur-2xl opacity-20 animate-pulse" />
+                  <img
+                    src="/Yash.jpeg"
+                    alt="Yash Khairnar"
+                    className="relative w-full h-full object-cover rounded-full border-2 border-white/20 dark:border-white/10 shadow-2xl"
+                  />
+                </div>
+              </TiltWrapper>
             </motion.div>
           </div>
         </div>
@@ -261,7 +263,7 @@ const Portfolio = () => {
               { label: "Location", value: "San Jose, CA" }
             ].map((stat, i) => (
               <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
-                <h3 className="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-1">{stat.value}</h3>
+                <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-1">{stat.value}</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
               </div>
             ))}
@@ -278,11 +280,11 @@ const Portfolio = () => {
           {experiences.map((exp, index) => (
             <div key={index} className={`relative mb-12 md:mb-16 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
               <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:ml-auto'} pl-12`}>
-                <div className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full border-4 border-white dark:border-slate-900 bg-sky-600 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 z-10`} />
+                <div className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full border-4 border-white dark:border-slate-900 bg-orange-600 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 z-10`} />
 
-                <div className="group p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 hover:border-sky-500/30 transition-all shadow-sm hover:shadow-md">
+                <div className="group p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 hover:border-orange-500/30 transition-all shadow-sm hover:shadow-md">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{exp.position}</h3>
-                  <div className="text-sky-600 dark:text-sky-400 font-medium mb-2">{exp.company}</div>
+                  <div className="text-orange-600 dark:text-orange-500 font-medium mb-2">{exp.company}</div>
                   <div className="text-sm text-slate-500 dark:text-slate-400 mb-4">{exp.duration} | {exp.location}</div>
                   <ul className={`space-y-2 text-sm text-slate-600 dark:text-slate-300 ${index % 2 === 0 ? 'md:text-right' : 'text-left'}`}>
                     {exp.achievements.map((item, i) => (
@@ -305,22 +307,33 @@ const Portfolio = () => {
       {/* Skills Section */}
       <Section id="skills">
         <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Technical Skills</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-8 max-w-5xl mx-auto">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
+
             return (
               <motion.div
                 key={index}
-                whileHover={{ y: -5 }}
-                className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ x: 10 }}
+                className="flex flex-col md:flex-row gap-6 md:gap-10 items-start p-6 rounded-3xl bg-white/50 dark:bg-slate-800/50 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 transition-all hover:bg-white dark:hover:bg-slate-800"
               >
-                <div className="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center mb-4 text-sky-600 dark:text-sky-400">
-                  <Icon size={24} />
+                <div className="md:w-64 flex items-center gap-4 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-500">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{skill.name}</h3>
                 </div>
-                <h3 className="text-lg font-bold mb-3">{skill.name}</h3>
-                <div className="flex flex-wrap gap-2">
+
+                <div className="flex-1 flex flex-wrap gap-2">
                   {skill.tech.split(', ').map((tech, i) => (
-                    <span key={i} className="px-2 py-1 text-xs rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                    <span
+                      key={i}
+                      className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-orange-200 dark:hover:border-orange-900/50 hover:text-orange-700 dark:hover:text-orange-400 transition-colors cursor-default"
+                    >
                       {tech}
                     </span>
                   ))}
@@ -333,30 +346,36 @@ const Portfolio = () => {
 
       {/* Achievements Section */}
       <Section id="achievements" className="bg-slate-50/50 dark:bg-slate-900/50">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Achievements</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {achievements.map((category, idx) => (
-            <div key={idx} className="space-y-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900">
-                  <category.icon size={20} />
-                </div>
-                <h3 className="text-2xl font-bold">{category.category}</h3>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Achievements & Leadership</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+          {achievements[0].items.map((item, idx) => (
+            <div key={idx} className="md:col-span-2 p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-4">
+                <Trophy className="text-orange-500" size={24} />
+                <h3 className="text-2xl font-bold">Awards</h3>
               </div>
-              <div className="space-y-6">
-                {category.items.map((item, itemIdx) => (
-                  <div key={itemIdx} className="pl-6 border-l-2 border-slate-200 dark:border-slate-700 relative">
-                    <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-sky-500" />
-                    <h4 className="text-lg font-bold mb-1">{item.title}</h4>
-                    <span className="text-sm text-sky-600 dark:text-sky-400 mb-2 block">{item.date}</span>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <h4 className="text-xl font-bold mb-2">{item.title}</h4>
+              <span className="text-sm text-orange-600 dark:text-orange-500 mb-2 block">{item.date}</span>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                {item.description}
+              </p>
             </div>
           ))}
+
+          <div className="md:col-span-1 p-8 rounded-3xl bg-orange-600 text-white shadow-lg flex flex-col justify-between">
+            <div className="flex items-center gap-3">
+              <Users size={24} />
+              <h3 className="text-2xl font-bold">Leadership</h3>
+            </div>
+            <div className="space-y-6">
+              {achievements[1].items.map((item, idx) => (
+                <div key={idx} className="border-l-2 border-white/30 pl-4 py-1">
+                  <h4 className="font-bold">{item.title}</h4>
+                  <p className="text-orange-100 text-sm mt-1">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
 
@@ -373,12 +392,12 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-8">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400">
+                <div className="p-3 rounded-lg bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-500">
                   <Mail size={24} />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1">Email Me</h3>
-                  <a href="mailto:yashkvk7@gmail.com" className="text-slate-600 dark:text-slate-300 hover:text-sky-600 transition-colors">
+                  <a href="mailto:yashkvk7@gmail.com" className="text-slate-600 dark:text-slate-300 hover:text-orange-600 transition-colors">
                     yashkvk7@gmail.com
                   </a>
                 </div>
@@ -397,7 +416,7 @@ const Portfolio = () => {
                 <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none transition-all"
                   placeholder="John Doe"
                 />
               </div>
@@ -405,7 +424,7 @@ const Portfolio = () => {
                 <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none transition-all"
                   placeholder="john@example.com"
                 />
               </div>
@@ -413,7 +432,7 @@ const Portfolio = () => {
                 <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-sky-500 outline-none transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-orange-500 outline-none transition-all resize-none"
                   placeholder="Tell me about your project..."
                 ></textarea>
               </div>
@@ -422,7 +441,7 @@ const Portfolio = () => {
                 type="button"
                 onClick={handleFormSubmit}
                 disabled={isFormSubmitting || formSubmitted}
-                className="w-full py-4 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isFormSubmitting ? (
                   'Sending...'
@@ -439,6 +458,51 @@ const Portfolio = () => {
 
       <Footer />
     </div>
+  );
+};
+
+const TiltWrapper = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className={cn("relative flex items-center justify-center", className)}
+    >
+      <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }}>
+        {children}
+      </div>
+    </motion.div>
   );
 };
 

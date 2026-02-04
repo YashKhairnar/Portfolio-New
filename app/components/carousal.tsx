@@ -2,23 +2,33 @@ import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 
 const projects = [
   {
-    index : 9,
-    title : 'Malware Classification',
-    link : 'https://github.com/YashKhairnar/Malware-Classification',
-    photo : 'malware.png',
-    description : 'A comprehensive machine learning project for classifying malware samples into 12 different families',
-    tech : ['PyTorch', 'CNN', 'DenseNet121', 'SVM', 'Grid Search', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
+    index: 10,
+    title: 'Nook',
+    link: 'https://nookstudio.online',
+    photo: 'nook.png',
+    description:
+      "Find cafes nearby and much more",
+    tech: ["Next.js", "Machine Learning", "React Native", "AWS", "CI/CD"],
   },
   {
-    index : 8,
-    title : 'Sentinel',
-    link : 'https://dashboard.thesentinel.site',
-    photo : 'sentinel.png',
-    description : 'Serverless email marketing platform built on AWS with real-time analytics, AI-powered content generation, and multi-region deployment.',
-    tech : ['AWS Lambda', 'AWS S3', 'AWS API Gateway', 'DynamoDB', 'SQS', 'SNS', 'SES','Terraform', 'Next.js', 'GitHub Actions']
+    index: 9,
+    title: 'Malware Classification',
+    link: 'https://github.com/YashKhairnar/Malware-Classification',
+    photo: 'malware.png',
+    description: 'A comprehensive machine learning project for classifying malware samples into 12 different families',
+    tech: ['PyTorch', 'CNN', 'DenseNet121', 'SVM', 'Grid Search', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
+  },
+  {
+    index: 8,
+    title: 'Sentinel',
+    link: 'https://dashboard.thesentinel.site',
+    photo: 'sentinel.png',
+    description: 'Serverless email marketing platform built on AWS with real-time analytics, AI-powered content generation, and multi-region deployment.',
+    tech: ['AWS Lambda', 'AWS S3', 'AWS API Gateway', 'DynamoDB', 'SQS', 'SNS', 'SES', 'Terraform', 'Next.js', 'GitHub Actions']
   },
   {
     index: 7,
@@ -149,47 +159,49 @@ export function ProjectCarousel() {
                 xl:flex-[0_0_32%]
               "
             >
-              <article className="h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-shadow">
-                <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl">
-                  <img
-                    src={project.photo}
-                    alt={`${project.title} preview`}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="p-4 sm:p-5">
-                  <header className="mb-2 flex items-start justify-between gap-3">
-                    <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
-                      {project.title}
-                    </h3>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300 hover:text-indigo-900 dark:hover:text-indigo-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </header>
-
-                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full bg-zinc-100 dark:bg-zinc-800 px-2.5 py-1 text-[10px] sm:text-xs font-medium text-zinc-700 dark:text-zinc-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+              <TiltCard>
+                <article className="h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl">
+                    <img
+                      src={project.photo}
+                      alt={`${project.title} preview`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
-                </div>
-              </article>
+
+                  <div className="p-4 sm:p-5">
+                    <header className="mb-2 flex items-start justify-between gap-3">
+                      <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
+                        {project.title}
+                      </h3>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-orange-700 dark:text-orange-300 hover:text-orange-900 dark:hover:text-orange-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 transition"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </header>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full bg-orange-50 dark:bg-orange-900/20 px-2.5 py-1 text-[10px] sm:text-xs font-medium text-orange-700 dark:text-orange-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              </TiltCard>
             </div>
           ))}
         </div>
@@ -202,8 +214,8 @@ export function ProjectCarousel() {
             key={index}
             onClick={() => emblaApi?.scrollTo(index)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === selectedIndex
-              ? "bg-indigo-600 dark:bg-indigo-400 scale-110"
-              : "bg-zinc-400 dark:bg-zinc-600 hover:bg-zinc-500 dark:hover:bg-zinc-500"
+              ? "bg-orange-600 dark:bg-orange-400 scale-110"
+              : "bg-orange-100 dark:bg-zinc-800 hover:bg-orange-200 dark:hover:bg-zinc-700"
               }`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -212,3 +224,15 @@ export function ProjectCarousel() {
     </div>
   );
 }
+
+const TiltCard = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <motion.div
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      className="h-full"
+    >
+      {children}
+    </motion.div>
+  );
+};
