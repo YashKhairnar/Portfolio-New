@@ -4,7 +4,6 @@ import { Brain, Zap, Rocket, Cloud, Code, Trophy, Users, ArrowRight, Mail, Send 
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import BackgroundParticles from './components/background';
 import InternshipStatus from './components/notification';
-import { SocialIcon } from 'react-social-icons';
 import { ProjectCarousel } from './components/carousal';
 import Typewriter from './components/typewriter';
 import Navbar from './components/navbar';
