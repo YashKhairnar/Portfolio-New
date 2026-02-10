@@ -61,7 +61,7 @@ const Portfolio = () => {
   };
 
   const skills = [
-    { name: "Machine Learning & AI", icon: Brain, tech: "Regression, Classification, SVM, Decision Trees, Random Forest, Deep Learning, CNNs, Transformers, NLP, RL, GANs" },
+    { name: "Machine Learning & AI", icon: Brain, tech: "Regression, Classification, SVM, Decision Trees, Random Forest, Deep Learning, CNNs, Transformers, NLP, RL, GANs, LoRA/PEFT, RAG, LangGraph" },
     { name: "Libraries & Frameworks", icon: Zap, tech: "TensorFlow, Keras, PyTorch, Scikit-Learn, NumPy, Pandas, React, Node.js, Next.js, Flask, LangChain" },
     { name: "Databases", icon: Rocket, tech: "MySQL, MongoDB, PostgreSQL, Redis, DynamoDB" },
     { name: "Cloud & DevOps", icon: Cloud, tech: "AWS, EC2, RDS, Amplify, Docker, Kubernetes, Git, Nginx, Distributed Systems" },
@@ -256,10 +256,8 @@ const Portfolio = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { label: "Experience", value: "2+ Years" },
-              { label: "Projects", value: "15+" },
-              { label: "Research", value: "Active" },
-              { label: "Location", value: "San Jose, CA" }
+              { label: "Experience", value: "2 Years" },
+              { label: "Projects", value: "15+" }
             ].map((stat, i) => (
               <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
                 <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-1">{stat.value}</h3>

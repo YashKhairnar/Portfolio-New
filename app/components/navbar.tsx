@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/app/utils/cn';
 
+import Link from 'next/link';
+
 interface NavbarProps {
     activeSection: string;
     scrollToSection: (section: string) => void;
@@ -22,7 +24,7 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navLinks = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'];
+    const navLinks = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'blog', 'contact'];
 
     return (
         <motion.nav
@@ -46,22 +48,41 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex items-center space-x-8">
                     {navLinks.map((section) => (
-                        <button
-                            key={section}
-                            onClick={() => scrollToSection(section)}
-                            className={cn(
-                                "capitalize text-sm font-medium transition-colors duration-300 relative group",
-                                activeSection === section
-                                    ? "text-orange-600 dark:text-orange-500"
-                                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
-                            )}
-                        >
-                            {section}
-                            <span className={cn(
-                                "absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 dark:bg-orange-500 transition-all duration-300 group-hover:w-full",
-                                activeSection === section ? "w-full" : ""
-                            )} />
-                        </button>
+                        section === 'blog' ? (
+                            <Link
+                                key={section}
+                                href="/blog"
+                                className={cn(
+                                    "capitalize text-sm font-medium transition-colors duration-300 relative group",
+                                    activeSection === section
+                                        ? "text-orange-600 dark:text-orange-500"
+                                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                                )}
+                            >
+                                {section}
+                                <span className={cn(
+                                    "absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 dark:bg-orange-500 transition-all duration-300 group-hover:w-full",
+                                    activeSection === section ? "w-full" : ""
+                                )} />
+                            </Link>
+                        ) : (
+                            <button
+                                key={section}
+                                onClick={() => scrollToSection(section)}
+                                className={cn(
+                                    "capitalize text-sm font-medium transition-colors duration-300 relative group",
+                                    activeSection === section
+                                        ? "text-orange-600 dark:text-orange-500"
+                                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                                )}
+                            >
+                                {section}
+                                <span className={cn(
+                                    "absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 dark:bg-orange-500 transition-all duration-300 group-hover:w-full",
+                                    activeSection === section ? "w-full" : ""
+                                )} />
+                            </button>
+                        )
                     ))}
 
                     <div className="flex items-center space-x-4 border-l border-slate-200 dark:border-slate-800 pl-4">
@@ -98,21 +119,37 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
                     >
                         <div className="px-4 py-6 space-y-4">
                             {navLinks.map((section) => (
-                                <button
-                                    key={section}
-                                    onClick={() => {
-                                        scrollToSection(section);
-                                        setIsMobileMenuOpen(false);
-                                    }}
-                                    className={cn(
-                                        "block w-full text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors",
-                                        activeSection === section
-                                            ? "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-500"
-                                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
-                                    )}
-                                >
-                                    {section}
-                                </button>
+                                section === 'blog' ? (
+                                    <Link
+                                        key={section}
+                                        href="/blog"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={cn(
+                                            "block w-full text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors",
+                                            activeSection === section
+                                                ? "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-500"
+                                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                        )}
+                                    >
+                                        {section}
+                                    </Link>
+                                ) : (
+                                    <button
+                                        key={section}
+                                        onClick={() => {
+                                            scrollToSection(section);
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        className={cn(
+                                            "block w-full text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors",
+                                            activeSection === section
+                                                ? "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-500"
+                                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                        )}
+                                    >
+                                        {section}
+                                    </button>
+                                )
                             ))}
                             <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                                 <a

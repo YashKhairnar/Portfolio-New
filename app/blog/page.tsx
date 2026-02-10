@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Calendar, Clock, ArrowLeft } from 'lucide-react';
+import { ChevronDown, Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import BackgroundParticles from '../components/background';
 import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
@@ -192,25 +192,58 @@ export default function Blog() {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center z-10 bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-300">
-        <div className="text-center space-y-8 px-4 sm:px-6 max-w-5xl">
-          <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
-            <h1 className="p-6 sm:p-8 lg:p-10 text-4xl sm:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient">
-              Insights
+        {/* Gradient Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[30%] -left-[15%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-orange-200/30 via-amber-100/20 to-transparent dark:from-orange-900/20 dark:via-amber-800/10 blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute top-[20%] -right-[15%] w-[50%] h-[50%] rounded-full bg-gradient-to-bl from-sky-200/25 via-blue-100/15 to-transparent dark:from-sky-900/15 dark:via-blue-800/10 blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+          <div className="absolute -bottom-[20%] left-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-tr from-emerald-200/20 via-green-100/10 to-transparent dark:from-emerald-900/10 dark:via-green-800/5 blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+        </div>
+
+        <div className="relative text-center space-y-8 px-4 sm:px-6 max-w-5xl">
+          <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
+            {/* Badge */}
+            <div className="inline-flex items-center px-4 py-2 rounded-full border border-orange-200/50 dark:border-orange-800/30 bg-orange-50/50 dark:bg-orange-900/20 backdrop-blur-sm mb-8">
+              <span className="w-2 h-2 rounded-full bg-orange-500 mr-2 animate-pulse" />
+              <span className="text-xs font-medium text-orange-700 dark:text-orange-300 tracking-wide uppercase">Blog & Articles</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight mb-6">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white">
+                Insights
+              </span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed font-light">
-              My thoughts in written form as I explore technology and the world.
+
+            {/* Subtitle */}
+            <p className={`text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+              Exploring the intersection of <span className="font-medium text-slate-900 dark:text-white">AI, Machine Learning</span>, and modern software engineering.
             </p>
-            <div className="mt-12 animate-bounce">
-              <ChevronDown className="w-6 h-6 text-gray-400 dark:text-gray-500 mx-auto" />
+
+
+            {/* CTA Button */}
+            <div className={`mt-16 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+              <button
+                onClick={() => document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              >
+                Read Articles
+                <ChevronDown className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Posts */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
+      <section id="posts" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-6xl mx-auto">
-          {loading && <p className="text-gray-500 dark:text-gray-400">Loading posts…</p>}
+          {loading && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-2xl h-80" />
+              ))}
+            </div>
+          )}
           {err && (
             <p className="text-red-600 dark:text-red-400">
               {err.includes('permission') ? 'Permission denied – check Firestore rules.' : err}
@@ -221,31 +254,68 @@ export default function Blog() {
               {blogPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-sm dark:hover:shadow-lg cursor-pointer"
-                  onClick={() => setSelectedPost(post)}
+                  className="group bg-white dark:bg-gray-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer flex flex-col"
+                  onClick={() => post.source === 'medium' ? window.open(post.link, '_blank') : setSelectedPost(post)}
                 >
-                  <div className="p-4 sm:p-6 lg:p-8">
-                    {post.featured && (
-                      <div className="mb-3 sm:mb-4">
-                        <span className="px-2 sm:px-3 py-1 bg-sky-100 dark:bg-sky-900/30 text-sky-800 dark:text-sky-300 text-xs font-medium rounded-full">
-                          Featured
+                  <div className="relative aspect-[16/9] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                    {post.imageUrl ? (
+                      <img
+                        src={post.imageUrl}
+                        alt={post.title}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-zinc-400">
+                        <Calendar size={32} strokeWidth={1} />
+                      </div>
+                    )}
+                    {post.source === 'medium' && (
+                      <div className="absolute top-4 right-4">
+                        <span className="px-2 py-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-medium rounded-md uppercase tracking-wider">
+                          Medium
                         </span>
                       </div>
                     )}
+                  </div>
 
-                    <h2 className="text-lg lg:text-xl font-medium mb-3 text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3 text-xs text-zinc-500 dark:text-zinc-400 font-medium">
+                      <span>
+                        {post.date ? new Date(post.date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        }) : 'Recent'}
+                      </span>
+                      {post.tags?.[0] && (
+                        <>
+                          <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+                          <span className="text-orange-600 dark:text-orange-500">{post.tags[0]}</span>
+                        </>
+                      )}
+                    </div>
+
+                    <h2 className="text-xl font-bold mb-3 text-zinc-900 dark:text-zinc-100 group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors line-clamp-2">
                       {post.title}
                     </h2>
 
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
 
-                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                      <span>{post.author}</span>
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-[10px] font-bold">
+                          {post.author?.[0] || 'Y'}
+                        </div>
+                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{post.author || 'Yash Khairnar'}</span>
+                      </div>
+                      <div className="text-orange-600 dark:text-orange-500 group-hover:translate-x-1 transition-transform">
+                        <ArrowRight size={16} />
+                      </div>
                     </div>
                   </div>
                 </article>
               ))}
-              {blogPosts.length === 0 && <p className="text-gray-500 dark:text-gray-400">No posts yet.</p>}
+              {blogPosts.length === 0 && <p className="text-gray-500 dark:text-gray-400 col-span-full text-center py-12">No posts yet.</p>}
             </div>
           )}
         </div>
@@ -278,19 +348,16 @@ export default function Blog() {
                   color: 'hover:text-red-500 dark:hover:text-red-400'
                 }
               ].map((social, index) => (
-                <a
+                <SocialIcon
                   key={index}
-                  href={social.href}
+                  url={social.href}
                   target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
                   rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className={`text-gray-500 dark:text-gray-400 transition-colors duration-300 ${social.color}`}
+                  className={`h-5 w-5 transition-colors duration-300 ${social.color}`}
                   aria-label={social.label}
-                >
-                  <SocialIcon
-                    url={social.href}
-                    className="h-5 w-5"
-                  />
-                </a>
+                  bgColor="transparent"
+                  fgColor="currentColor"
+                />
               ))}
             </div>
 

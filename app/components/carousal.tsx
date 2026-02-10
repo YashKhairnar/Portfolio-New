@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
 const projects = [
   {
-    index: 10,
+    index: 11,
     title: 'Nook',
     link: 'https://nookstudio.online',
+    github: 'https://github.com/YashKhairnar',
     photo: 'nook.png',
     description:
-      "Find cafes nearby and much more",
+      "Cafe discovery platform with personalized recommendations using collaborative filtering and location-based ML",
     tech: ["Next.js", "Machine Learning", "React Native", "AWS", "CI/CD"],
+  },
+  {
+    index: 10,
+    title: 'ThinkFlow',
+    link: 'https://github.com/yashkhairnar',
+    github: 'https://github.com/yashkhairnar/ThinkFlow', // Update with actual GitHub link if desired, but user just asked for "github link"
+    photo: 'ThinkFlow.gif',
+    description: "EEG-to-text translation system using VQ-VAE + BART Transformer and LSTM Seq2Seq with Attention for real-time brain signal decoding",
+    tech: ["PyTorch", "HuggingFace", "Transformers", "Flask", "Next.js", "LSTM", "VQ-VAE"]
   },
   {
     index: 9,
     title: 'Malware Classification',
     link: 'https://github.com/YashKhairnar/Malware-Classification',
+    github: 'https://github.com/YashKhairnar/Malware-Classification',
     photo: 'malware.png',
-    description: 'A comprehensive machine learning project for classifying malware samples into 12 different families',
+    description: 'Classified malware into 12 families using DenseNet121 CNN, achieving 95% accuracy on 10K+ samples',
     tech: ['PyTorch', 'CNN', 'DenseNet121', 'SVM', 'Grid Search', 'encoder-decoder', 'Machine Learning', 'Deep Learning']
   },
   {
     index: 8,
     title: 'Sentinel',
     link: 'https://dashboard.thesentinel.site',
+    github: 'https://github.com/YashKhairnar/sentinel',
     photo: 'sentinel.png',
     description: 'Serverless email marketing platform built on AWS with real-time analytics, AI-powered content generation, and multi-region deployment.',
     tech: ['AWS Lambda', 'AWS S3', 'AWS API Gateway', 'DynamoDB', 'SQS', 'SNS', 'SES', 'Terraform', 'Next.js', 'GitHub Actions']
@@ -34,6 +46,7 @@ const projects = [
     index: 7,
     title: "Agies",
     link: "https://github.com/YashKhairnar/Agies",
+    github: "https://github.com/YashKhairnar/Agies",
     photo: "Agies.png",
     description:
       "An AI-powered automated bug fixing agent that analyzes Sentry errors, identifies problematic code, proposes fixes, tests them in a sandbox environment, and creates draft pull requests.",
@@ -43,6 +56,7 @@ const projects = [
     index: 6,
     title: "AetherForge",
     link: "https://www.loom.com/share/0916e2bfdd9e4918a204b51bcea43627",
+    github: "https://github.com/YashKhairnar/Agies",
     photo: "AetherForge.png",
     description:
       "It's a multi-agent AI IDE that allows multiple humans and specialized AI agents to edit the same codebase simultaneously using Gemini orchestration and Automerge (CRDTs) for conflict-free, real-time collaboration.",
@@ -52,9 +66,10 @@ const projects = [
     index: 5,
     title: "CuriosityAI",
     link: "https://vimeo.com/1130720129?share=copy&fl=sv&fe=ci",
+    github: "https://github.com/YashKhairnar/curiosityAI",
     photo: "curiosityAI.png",
     description:
-      "An AI-powered agentic system that identifies innovation gaps in research landscapes using embedding inversion and retrieval-augmented generation, autonomously producing novel invention abstracts, sketches, and proposals to democratize R&D.",
+      "An AI-powered agentic system that identifies innovation gaps in research landscapes using embedding inversion and retrieval-augmented generation, autonomously producing novel invention abstracts, sketches, and proposals to democratize R&D. 20+ validated hypotheses from 10K+ embeddings",
     tech: [
       "CalHacks 12.0",
       "Machine learning",
@@ -68,15 +83,17 @@ const projects = [
     index: 4,
     title: "ResuMatch",
     link: "https://drive.google.com/file/d/14aywsnvRjfeiIVkjFd6e3aDEQWGt9f9K/view",
+    github: "https://github.com/YashKhairnar/ResuMatch",
     photo: "Resumatch.png",
     description:
-      "ResuMatch is an AI-powered platform that recommends the most relevant job postings using Tavily and enhances user resumes through a self-improving reinforcement learning agent.",
+      "RL-based resume optimizer using a two-agent architecture (Editor + Judge) with reward shaping to tailor resumes for specific job postings",
     tech: ["Next.js", "Tavily", "Reinforcement Learning", "LangGraph", "Git", "Flask"],
   },
   {
     index: 3,
     title: "Slique",
     link: "https://www.slique.vercel.app",
+    github: "https://github.com/YashKhairnar/Slique",
     photo: "Slique.png",
     description:
       "A platform for connecting Fashion Models to Brand recruiters. Built with features like job posting, searching, application, real-time chatting, and online contract-based hiring.",
@@ -86,6 +103,7 @@ const projects = [
     index: 2,
     title: "Image Colorizer",
     link: "https://github.com/YashKhairnar/ImageColorizer",
+    github: "https://github.com/YashKhairnar/ImageColorizer",
     photo: "Image_Colorizer.jpg",
     description:
       "Give colors to your black and white photographs using deep learning models.",
@@ -95,6 +113,7 @@ const projects = [
     index: 1,
     title: "4Bit",
     link: "https://github.com/YashKhairnar/4BIT",
+    github: "https://github.com/YashKhairnar/4BIT",
     photo: "Genetic-code.jpg",
     description:
       "A tool designed to diagnose lung cancer with the help of multi-omics data and CT scan images.",
@@ -104,6 +123,7 @@ const projects = [
     index: 0,
     title: "Roomie Radar",
     link: "https://github.com/YashKhairnar/RoomieRadar",
+    github: "https://github.com/YashKhairnar/RoomieRadar",
     photo: "roomieRadar.jpeg",
     description:
       "Roommate matching app that uses preference-based compatibility scoring to suggest the best fits.",
@@ -175,14 +195,28 @@ export function ProjectCarousel() {
                       <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
                         {project.title}
                       </h3>
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-orange-700 dark:text-orange-300 hover:text-orange-900 dark:hover:text-orange-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 transition"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                      <div className="flex gap-2">
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/30 transition"
+                            title="View Github"
+                          >
+                            <Github className="w-4 h-4" />
+                          </a>
+                        )}
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-orange-700 dark:text-orange-300 hover:text-orange-900 dark:hover:text-orange-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 transition"
+                          title="View Demo"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                     </header>
 
                     <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
