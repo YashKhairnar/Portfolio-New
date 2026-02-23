@@ -33,7 +33,7 @@ export default function Navbar({ activeSection, scrollToSection }: NavbarProps) 
             transition={{ duration: 0.5 }}
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
-                isScrolled ? "glass border-white/10 dark:border-white/5 py-3" : "bg-transparent py-5"
+                (isScrolled || isMobileMenuOpen) ? "glass border-white/10 dark:border-white/5 py-3" : "bg-transparent py-5"
             )}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">

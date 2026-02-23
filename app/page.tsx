@@ -10,6 +10,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Section from './components/ui/section';
 import { cn } from '@/app/utils/cn';
+import { SocialIcon } from 'react-social-icons';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -157,6 +158,27 @@ const Portfolio = () => {
       <BackgroundParticles />
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
 
+      {/* Sticky Social Links */}
+      <div className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm p-3 rounded-full border border-slate-200 dark:border-slate-800">
+        {[
+          { href: 'https://github.com/YashKhairnar', label: 'GitHub' },
+          { href: 'https://www.linkedin.com/in/yashkhairnar11/', label: 'LinkedIn' },
+          { href: 'https://x.com/I_esoteric', label: 'Twitter' },
+          { href: 'mailto:yashkvk7@gmail.com', label: 'Email' }
+        ].map((social, index) => (
+          <SocialIcon
+            key={index}
+            url={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 hover:scale-110 transition-transform"
+            bgColor="transparent"
+            fgColor="currentColor"
+            style={{ height: 32, width: 32 }}
+          />
+        ))}
+      </div>
+
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
         <div className="absolute inset-0 overflow-hidden">
@@ -183,20 +205,16 @@ const Portfolio = () => {
                   <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Open for research collaborations</span>
                 </motion.div>
 
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight h-[60px] sm:h-[80px] lg:h-[90px] flex flex-col justify-center">
+                <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight min-h-[80px] sm:min-h-[100px] lg:h-[90px] flex flex-col justify-center">
                   <Typewriter
                     words={["Machine Learning", "Artificial Intelligence", "Deep Learning", "Full Stack"]}
                   />
                 </h1>
 
                 <p className="text-xl sm:text-2xl font-light text-slate-600 dark:text-slate-300 max-w-xl">
-                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML and DistributedSystems</span>
+                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML & Distributed Systems</span>
                 </p>
               </div>
-
-              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
-                Building products that matter !
-              </p>
 
               <div className="flex flex-wrap gap-4">
                 <button
@@ -239,8 +257,8 @@ const Portfolio = () => {
 
       {/* About Section */}
       <Section id="about" className="bg-slate-50/50 dark:bg-slate-900/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">About Me</h2>
             <div className="space-y-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
               <p>
@@ -254,16 +272,26 @@ const Portfolio = () => {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { label: "Experience", value: "2 Years" },
-              { label: "Projects", value: "15+" }
-            ].map((stat, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
-                <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-1">{stat.value}</h3>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
-              </div>
-            ))}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700">
+              <img
+                src="/Yash.jpeg"
+                alt="Yash Khairnar"
+                className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { label: "Experience", value: "2 Years" },
+                { label: "Projects", value: "15+" }
+              ].map((stat, i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-center items-center text-center">
+                  <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-1">{stat.value}</h3>
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Section>
@@ -344,7 +372,7 @@ const Portfolio = () => {
       {/* Achievements Section */}
       <Section id="achievements" className="bg-slate-50/50 dark:bg-slate-900/50">
         <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Achievements & Leadership</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min md:auto-rows-[250px]">
           {achievements[0].items.map((item, idx) => (
             <div key={idx} className="md:col-span-2 p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-center">
               <div className="flex items-center gap-3 mb-4">

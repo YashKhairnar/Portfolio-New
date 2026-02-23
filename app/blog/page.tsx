@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ChevronDown, Calendar, Clock, ArrowLeft, ArrowRight, Github, BookOpen } from 'lucide-react';
 import BackgroundParticles from '../components/background';
 import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
@@ -190,52 +190,10 @@ export default function Blog() {
         )}
       </nav>
 
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center z-10 bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-300">
-        {/* Gradient Background Orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-[30%] -left-[15%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-orange-200/30 via-amber-100/20 to-transparent dark:from-orange-900/20 dark:via-amber-800/10 blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute top-[20%] -right-[15%] w-[50%] h-[50%] rounded-full bg-gradient-to-bl from-sky-200/25 via-blue-100/15 to-transparent dark:from-sky-900/15 dark:via-blue-800/10 blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
-          <div className="absolute -bottom-[20%] left-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-tr from-emerald-200/20 via-green-100/10 to-transparent dark:from-emerald-900/10 dark:via-green-800/5 blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
-        </div>
-
-        <div className="relative text-center space-y-8 px-4 sm:px-6 max-w-5xl">
-          <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-8'}`}>
-            {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full border border-orange-200/50 dark:border-orange-800/30 bg-orange-50/50 dark:bg-orange-900/20 backdrop-blur-sm mb-8">
-              <span className="w-2 h-2 rounded-full bg-orange-500 mr-2 animate-pulse" />
-              <span className="text-xs font-medium text-orange-700 dark:text-orange-300 tracking-wide uppercase">Blog & Articles</span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight mb-6">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white">
-                Insights
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className={`text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
-              Exploring the intersection of <span className="font-medium text-slate-900 dark:text-white">AI, Machine Learning</span>, and modern software engineering.
-            </p>
-
-
-            {/* CTA Button */}
-            <div className={`mt-16 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
-              <button
-                onClick={() => document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              >
-                Read Articles
-                <ChevronDown className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero section removed */}
 
       {/* Posts */}
-      <section id="posts" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
+      <section id="posts" className="py-24 sm:py-32 lg:py-40 px-4 sm:px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-6xl mx-auto">
           {loading && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -318,6 +276,35 @@ export default function Blog() {
               {blogPosts.length === 0 && <p className="text-gray-500 dark:text-gray-400 col-span-full text-center py-12">No posts yet.</p>}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Research Papers Section */}
+      <section id="research" className="py-12 sm:py-16 px-4 sm:px-6 relative bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-300">
+        <div className="absolute inset-0 max-w-7xl mx-auto rounded-[3rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-700/50 -z-10" />
+        <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-500 shadow-inner mb-2">
+            <BookOpen size={40} strokeWidth={1.5} />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight">
+            Research <span className="text-orange-600 dark:text-orange-500">Implementations</span>
+          </h2>
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-light">
+            I regularly read and implement state-of-the-art AI/ML research papers from scratch.
+            Check out my GitHub repository containing all my implementations, model architectures, and detailed notes.
+          </p>
+          <div className="pt-4">
+            <a
+              href="https://github.com/YashKhairnar/papers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+              <Github size={20} />
+              View Implementations on GitHub
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
         </div>
       </section>
 
