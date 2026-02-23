@@ -181,16 +181,17 @@ const Portfolio = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-[40%] -left-[20%] w-[70%] h-[70%] rounded-full bg-orange-200/20 dark:bg-orange-900/20 blur-[100px]" />
-          <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-slate-200/20 dark:bg-slate-900/20 blur-[100px]" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-[40%] -left-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-violet-200/40 via-purple-200/20 to-transparent dark:from-violet-900/30 dark:via-purple-900/10 blur-[120px] animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-gradient-to-bl from-orange-200/40 via-amber-200/20 to-transparent dark:from-orange-900/30 dark:via-amber-900/10 blur-[120px] animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+          <div className="absolute -bottom-[20%] left-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-tr from-sky-200/30 via-blue-200/10 to-transparent dark:from-sky-900/20 dark:via-blue-900/10 blur-[120px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full flex flex-col items-center text-center">
+          <div className="max-w-3xl w-full">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="space-y-8"
             >
@@ -198,58 +199,55 @@ const Portfolio = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="inline-flex items-center px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm"
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                  className="inline-flex items-center px-4 py-2 rounded-full border border-white/40 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md shadow-sm"
                 >
-                  <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                  <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Open for research collaborations</span>
+                  <span className="flex h-2 w-2 rounded-full bg-green-500 mr-3 animate-pulse"></span>
+                  <span className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-200 uppercase">Open for research collaborations</span>
                 </motion.div>
 
-                <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight min-h-[80px] sm:min-h-[100px] lg:h-[90px] flex flex-col justify-center">
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight min-h-[80px] sm:min-h-[100px] lg:h-[90px] flex flex-col justify-center"
+                >
                   <Typewriter
                     words={["Machine Learning", "Artificial Intelligence", "Deep Learning", "Full Stack"]}
                   />
-                </h1>
+                </motion.h1>
 
-                <p className="text-xl sm:text-2xl font-light text-slate-600 dark:text-slate-300 max-w-xl">
-                  Specializing in <span className="font-medium text-slate-900 dark:text-white">AI/ML & Distributed Systems</span>
-                </p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="text-xl sm:text-2xl font-light text-slate-600 dark:text-slate-300 max-w-xl mx-auto"
+                >
+                  Specializing in <span className="font-semibold text-slate-900 dark:text-white">AI/ML & Distributed Systems</span>
+                </motion.p>
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="flex flex-wrap gap-4 justify-center pt-4"
+              >
                 <button
                   onClick={() => scrollToSection('projects')}
-                  className="px-8 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center gap-2"
+                  className="group px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-[0_0_20px_rgba(0,0,0,0.1)] hover:shadow-[0_0_30px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 flex items-center gap-2"
                 >
-                  View Work <ArrowRight size={18} />
+                  View Work <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => scrollToSection('contact')}
-                  className="px-8 py-3 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all font-medium"
+                  className="px-8 py-4 rounded-full border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:bg-orange-50/50 dark:hover:bg-orange-900/20 transition-all font-semibold text-slate-900 dark:text-slate-100"
                 >
                   Contact Me
                 </button>
-              </div>
+              </motion.div>
 
               <InternshipStatus />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative lg:h-[600px] flex items-center justify-center"
-            >
-              <TiltWrapper>
-                <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-500 to-orange-600 blur-2xl opacity-20 animate-pulse" />
-                  <img
-                    src="/Yash.jpeg"
-                    alt="Yash Khairnar"
-                    className="relative w-full h-full object-cover rounded-full border-2 border-white/20 dark:border-white/10 shadow-2xl"
-                  />
-                </div>
-              </TiltWrapper>
             </motion.div>
           </div>
         </div>
@@ -260,12 +258,15 @@ const Portfolio = () => {
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">About Me</h2>
-            <div className="space-y-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              <p>
-                The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries. I like to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
+            <div className="space-y-6 text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-light">
+              <p className="text-xl sm:text-2xl font-medium text-slate-800 dark:text-slate-200 leading-snug">
+                The world of Machine Learning and AI has always inspired me to explore how far we can push its boundaries.
               </p>
               <p>
-                I hold a Bachelor's in Computer Engineering from Pune University and I'm currently pursuing a <span className="font-semibold text-slate-900 dark:text-white">M.S. in Computer Science</span> at San José State University.
+                I like to research new ideas and continually challenge myself to learn and apply state-of-the-art techniques.
+              </p>
+              <p>
+                I hold a Bachelor's in Computer Engineering from Pune University and I'm currently pursuing an <span className="font-semibold text-slate-900 dark:text-white">M.S. in Computer Science</span> at San José State University.
               </p>
               <p>
                 My hands-on experience spans Machine Learning and Deep Learning, with applications in Computer Vision, NLP, and multimodal AI. Beyond AI, I'm proficient in full-stack development (MERN), cloud platforms (AWS), and orchestration tools.
@@ -286,7 +287,7 @@ const Portfolio = () => {
                 { label: "Experience", value: "2 Years" },
                 { label: "Projects", value: "15+" }
               ].map((stat, i) => (
-                <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-center items-center text-center">
+                <div key={i} className="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-orange-500/30 transition-all duration-300 flex flex-col justify-center items-center text-center">
                   <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-1">{stat.value}</h3>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.label}</p>
                 </div>
