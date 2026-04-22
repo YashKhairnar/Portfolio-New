@@ -6,6 +6,15 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    index: 12,
+    title: 'Documentation Assistant',
+    link: 'https://github.com/YashKhairnar/Document-Assistant',
+    github: 'https://github.com/YashKhairnar/Document-Assistant',
+    photo: 'chatwindow.png',
+    description: 'A professional Retrieval-Augmented Generation (RAG) application designed to provide AI-powered support based on technical documentation URLs. Users can index multiple documentation sources and chat with an assistant that retrieves context from the indexed material to provide accurate, technical answers.',
+    tech: ['Python', 'LangChain', 'FastAPI', 'RAG']
+  },
+  {
     index: 11,
     title: 'Nook',
     link: 'https://nookstudio.online',
