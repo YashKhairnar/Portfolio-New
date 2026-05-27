@@ -1,8 +1,8 @@
-# 🌐 Yash Khairnar — Portfolio
+# Yash Khairnar - Work Index
 
-A modern, responsive portfolio built with **Next.js (App Router)**, **Tailwind CSS**, and **TypeScript**.
+A minimal, text-first portfolio for an MSCS student: selected work, case studies, notes, experience, and contact.
 
-### 🚀 Deployment
+### Deployment
 
 Access at https://yashkhairnar.com
 ---

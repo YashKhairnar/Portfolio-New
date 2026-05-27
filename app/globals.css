@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #fff7ed;
-  --muted-foreground: #c2410c;
+  --background: #f7f7f2;
+  --foreground: #161712;
+  --muted: #ecece3;
+  --muted-foreground: #5f6258;
   --card: #ffffff;
-  --card-foreground: #0f172a;
-  --border: #fed7aa;
-  --primary: #f97316;
+  --card-foreground: #161712;
+  --border: #deded4;
+  --primary: #315f48;
   --primary-foreground: #ffffff;
 }
 
@@ -26,13 +26,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background: #d7ddc7;
+}
+
+.font-serif-display {
+  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+}
+
+.font-mono-note {
+  font-family: var(--font-geist-mono), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
 @layer utilities {
   .glass {
     @apply bg-white/70 backdrop-blur-lg border border-white/20;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 via-stone-700 to-emerald-800;
   }
 }
 
