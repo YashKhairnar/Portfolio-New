@@ -14,8 +14,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yash Khairnar - Work Index",
-  description: "Minimal research and project index for Yash Khairnar, MSCS student.",
+  metadataBase: new URL("https://yashkhairnar.com"),
+  title: "Yash Khairnar",
+  description: "AI/ML engineer and CS graduate student at SJSU focused on multi-modal AI systems. Welcome to my space.",
+  openGraph: {
+    title: "Yash Khairnar",
+    description: "AI/ML engineer and CS graduate student at SJSU focused on multi-modal AI systems.",
+    siteName: "Yash Khairnar",
+    images: [
+      {
+        url: "/Yash.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Yash Khairnar",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

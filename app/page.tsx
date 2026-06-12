@@ -5,6 +5,7 @@ import {
   headerLinks,
   links,
   notes,
+  papers,
   projectArchive,
   projects,
   researchInterests,
@@ -106,14 +107,14 @@ export default function Home() {
           className="sticky top-0 z-10 -mx-5 border-b border-[#deded4] bg-[color:var(--background)]/94 px-5 py-3 backdrop-blur sm:-mx-6 sm:px-6"
         >
           <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono-note text-[13px] text-[#4d5047]">
-            <a href="#research" className="transition hover:text-[#315f48]">
-              research
-            </a>
             <a href="#education" className="transition hover:text-[#315f48]">
               education
             </a>
             <a href="#work" className="transition hover:text-[#315f48]">
-              work
+              experience
+            </a>
+            <a href="#research" className="transition hover:text-[#315f48]">
+              research/coursework
             </a>
             <a href="#notes" className="transition hover:text-[#315f48]">
               writing
@@ -129,6 +130,82 @@ export default function Home() {
             </a>
           </div>
         </nav>
+
+
+        <Section id="education" title="Education">
+          <div className="space-y-6">
+            {education.map((item) => (
+              <article
+                key={`${item.school}-${item.degree}`}
+                className="flex gap-4 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 items-start transition-transform duration-300 hover:-translate-y-1"
+              >
+                {item.logo && (
+                  <img
+                    src={item.logo}
+                    alt={item.logoAlt}
+                    className="shrink-0"
+                    style={{ width: 64, height: 64, objectFit: 'contain' }}
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-[15px] font-medium text-[#20221d]">
+                    {item.degree}
+                  </h3>
+                  <p className="mt-1 text-sm leading-6 text-[#565a50]">
+                    {item.school}
+                  </p>
+                  <p className="text-[13px] leading-6 text-[#74786a]">
+                    {item.location}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[#565a50]">
+                    {item.detail}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section id="experience" title="Experience">
+          <div className="space-y-7">
+            {experience.map((item) => (
+              <article
+                key={`${item.role}-${item.org}`}
+                className="flex gap-4 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 items-start transition-transform duration-300 hover:-translate-y-1"
+              >
+                {item.logo && (
+                  <img
+                    src={item.logo}
+                    alt={item.org}
+                    className="shrink-0"
+                    style={{ width: 80, height: 80, objectFit: 'contain' }}
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                    <h3 className="text-[15px] font-medium text-[#20221d]">
+                      {item.role}
+                    </h3>
+                    <p className="font-mono-note text-[13px] leading-6 text-[#74786a] shrink-0">
+                      {item.dates}
+                    </p>
+                  </div>
+                  <p className="text-sm leading-6 text-[#565a50]">
+                    {item.org}
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm leading-6 text-[#565a50]">
+                    {item.points.map((point) => (
+                      <li key={point} className="grid grid-cols-[16px_1fr] gap-2">
+                        <span className="font-mono-note text-[#7c806f]">-</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Section>
 
         <Section id="research" title="Research / Coursework">
           <div className="grid gap-8 sm:grid-cols-2">
@@ -147,25 +224,22 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section id="education" title="Education">
+        <Section id="papers" title="Paper Reproductions">
           <div className="space-y-6">
-            {education.map((item) => (
+            {papers.map((paper) => (
               <article
-                key={`${item.school}-${item.degree}`}
-                className="grid gap-2 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[170px_1fr]"
+                key={paper.title}
+                className="grid gap-2 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[64px_1fr] transition-transform duration-300 hover:-translate-y-1"
               >
-                <p className="font-mono-note text-[13px] leading-6 text-[#74786a]">
-                  {item.location}
-                </p>
+                <time className="font-mono-note text-[13px] text-[#777b6c]">
+                  {paper.year}
+                </time>
                 <div>
-                  <h3 className="text-[15px] font-medium text-[#20221d]">
-                    {item.degree}
+                  <h3 className="text-sm font-medium text-[#20221d]">
+                    <ExternalLink href={paper.link}>{paper.title}</ExternalLink>
                   </h3>
                   <p className="mt-1 text-sm leading-6 text-[#565a50]">
-                    {item.school}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-[#565a50]">
-                    {item.detail}
+                    {paper.detail}
                   </p>
                 </div>
               </article>
@@ -178,7 +252,7 @@ export default function Home() {
             {projects.map((project) => (
               <article
                 key={project.title}
-                className="grid gap-3 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[64px_1fr]"
+                className="grid gap-3 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[64px_1fr] transition-transform duration-300 hover:-translate-y-1"
               >
                 <time className="font-mono-note text-[13px] text-[#777b6c]">
                   {project.year}
@@ -239,40 +313,13 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section id="experience" title="Experience">
-          <div className="space-y-7">
-            {experience.map((item) => (
-              <article
-                key={`${item.role}-${item.org}`}
-                className="grid gap-2 sm:grid-cols-[170px_1fr]"
-              >
-                <p className="font-mono-note text-[13px] leading-6 text-[#74786a]">
-                  {item.dates}
-                </p>
-                <div>
-                  <h3 className="text-[15px] font-medium text-[#20221d]">
-                    {item.role}, {item.org}
-                  </h3>
-                  <ul className="mt-2 space-y-2 text-sm leading-6 text-[#565a50]">
-                    {item.points.map((point) => (
-                      <li key={point} className="grid grid-cols-[16px_1fr] gap-2">
-                        <span className="font-mono-note text-[#7c806f]">-</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Section>
 
         <Section id="archive" title="Project Archive">
           <div className="space-y-6">
             {projectArchive.map((project) => (
               <article
                 key={project.title}
-                className="grid gap-2 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[64px_1fr]"
+                className="grid gap-2 border-t border-[#e5e5dc] pt-5 first:border-t-0 first:pt-0 sm:grid-cols-[64px_1fr] transition-transform duration-300 hover:-translate-y-1"
               >
                 <time className="font-mono-note text-[13px] text-[#777b6c]">
                   {project.year}
