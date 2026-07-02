@@ -33,7 +33,7 @@ export const education = [
     degree: "M.S. Computer Science",
     location: "San Jose, CA",
     detail: "Graduate study focused on AI/ML systems, distributed systems, and applied software engineering.",
-    logo: "/logos/sjsu.svg",
+    logo: "/brands/sjsu.svg",
     logoAlt: "San Jose State University",
   },
   {
@@ -41,7 +41,7 @@ export const education = [
     degree: "B.E. Computer Engineering",
     location: "Pune, India",
     detail: "Undergraduate foundation in computer engineering, algorithms, databases, systems, and applied machine learning.",
-    logo: "/logos/sppu.png",
+    logo: "/brands/sppu.png",
     logoAlt: "Savitribai Phule Pune University",
   },
 ];
@@ -336,7 +336,7 @@ export const experience = [
     role: "Graduate Mentor | AI4ALL",
     org: "Stanford University",
     dates: "June 2026 - August 2026",
-    logo: "/logos/stanford.avif",
+    logo: "/brands/stanford.avif",
     points: [
       "Mentored 20+ students in AI/ML concepts, Python programming, and project development through hands-on workshops and technical mentorship.",
       "Guided student teams in designing and implementing end-to-end machine learning projects across Computer Vision, NLP, and Robotics domains.",
@@ -347,7 +347,7 @@ export const experience = [
     role: "Software Engineer",
     org: "Accurate Industrial Controls Pvt. Ltd.",
     dates: "July 2024 - June 2025",
-    logo: "/logos/accurate.jpeg",
+    logo: "/brands/accurate.jpeg",
     points: [
       "Engineered an end-to-end predictive maintenance system for industrial generators using anomaly detection and RUL prediction models, achieving 93% accuracy across 500+ hours of telemetry data.",
       "Built an Automatic Number Plate Recognition pipeline using YOLOv11 and PaddleOCR with image preprocessing modules, improving plate detection and text extraction to 97% accuracy.",
@@ -359,7 +359,7 @@ export const experience = [
     role: "Artificial Intelligence Intern",
     org: "Accurate Industrial Controls Pvt. Ltd.",
     dates: "August 2023 - November 2023",
-    logo: "/logos/accurate.jpeg",
+    logo: "/brands/accurate.jpeg",
     points: [
       "Built an anomaly detection system for copper coil inspection using PatchCore and YOLO, integrating object tracking and image compression to improve inference efficiency.",
       "Reduced video inference latency to 50 ms using GPU acceleration, multi-threading, frame skips, and pipeline-level optimizations.",
@@ -370,7 +370,7 @@ export const experience = [
     role: "Deep Learning Intern",
     org: "ResoluteAI Software",
     dates: "November 2022 - February 2023",
-    logo: "/logos/resoluteAI.png",
+    logo: "/brands/resoluteAI.png",
     points: [
       "Developed a facial recognition attendance system using MTCNN for detection and a custom ANN classifier for embeddings, achieving 90% accuracy with less than 2% FPR.",
       "Engineered a PDF resume parser using PyPDF2 and regex to extract structured data into JSON, automating 70% of manual data entry.",
