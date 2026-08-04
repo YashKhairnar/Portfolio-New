@@ -15,7 +15,6 @@ export const researchInterests = [
   "Core ML/DL, Computer Vision, LLMs, RL and Multimodal systems",
   "Agentic AI Systems",
   "Retrieval-Augmented Generation",
-  "Game Theory"
 ];
 
 export const coursework = [
@@ -333,18 +332,27 @@ export const notes = [
 
 export const experience = [
   {
+    role: "Graduate Student Researcher",
+    org: 'San Jose State University',
+    dates: 'August 2026 - Present',
+    logo: '/brands/sjsu.svg',
+    points: [
+      'Working on a JEPA-inspired, action-conditioned learner world model that predicts student knowledge-state transitions from programming trajectories and supports adaptive instructional planning.'
+    ],
+  },
+  {
     role: "Graduate Mentor | AI4ALL",
     org: "Stanford University",
-    dates: "June 2026 - August 2026",
+    dates: "June 2026 - July 2026",
     logo: "/brands/stanford.avif",
     points: [
-      "Mentored 20+ students in AI/ML concepts, Python programming, and project development through hands-on workshops and technical mentorship.",
+      "Mentored 30+ students in AI/ML concepts, Python programming, and project development through hands-on workshops and technical mentorship.",
       "Guided student teams in designing and implementing end-to-end machine learning projects across Computer Vision, NLP, and Robotics domains.",
       "Collaborated with Stanford faculty and co-mentors to deliver AI curriculum, support project execution, and cultivate an inclusive learning environment.",
     ],
   },
   {
-    role: "Software Engineer",
+    role: "AI/ML Engineer",
     org: "Accurate Industrial Controls Pvt. Ltd.",
     dates: "July 2024 - June 2025",
     logo: "/brands/accurate.jpeg",
@@ -356,7 +364,7 @@ export const experience = [
     ],
   },
   {
-    role: "Artificial Intelligence Intern",
+    role: "AI Intern",
     org: "Accurate Industrial Controls Pvt. Ltd.",
     dates: "August 2023 - November 2023",
     logo: "/brands/accurate.jpeg",
