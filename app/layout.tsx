@@ -16,10 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://yashkhairnar.com"),
   title: "Yash Khairnar",
-  description: "AI/ML engineer and CS graduate student at SJSU focused on multi-modal AI systems. Welcome to my space.",
+  description: "AI/ML engineer and CS graduate student at SJSU focused on building intelligent systems that can learn, reason, and act.",
   openGraph: {
     title: "Yash Khairnar",
-    description: "AI/ML engineer and CS graduate student at SJSU focused on multi-modal AI systems.",
+    description: "AI/ML engineer and CS graduate student at SJSU focused on building intelligent systems that can learn, reason, and act.",
     siteName: "Yash Khairnar",
     images: [
       {

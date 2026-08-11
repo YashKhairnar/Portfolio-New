@@ -2,19 +2,17 @@ export const links = [
   { label: "GitHub", href: "https://github.com/YashKhairnar" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/yashkhairnar11/" },
   { label: "Writing", href: "/blog" },
-  { label: "CV", href: "/Yash_Khairnar_Resume.pdf" },
   { label: "Email", href: "mailto:yashkvk7@gmail.com" },
 ];
 
 export const headerLinks = links.filter(({ label }) =>
-  ["GitHub", "LinkedIn", "CV", "Email"].includes(label)
+  ["GitHub", "LinkedIn", "Email"].includes(label)
 );
 
 export const researchInterests = [
   "World Models",
   "Core ML/DL, Computer Vision, LLMs, RL and Multimodal systems",
-  "Agentic AI Systems",
-  "Retrieval-Augmented Generation",
+  "Agentic AI Systems"
 ];
 
 export const coursework = [
