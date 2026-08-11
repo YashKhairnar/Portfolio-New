@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Download, Github, Linkedin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { education, experience, papers, projects, researchInterests } from "./data/portfolio";
 import WritingCarousel from "./components/writing-carousel";
 
@@ -7,23 +7,17 @@ export default function Home() {
   return (
     <main className="terrain-site">
       <nav className="terrain-nav">
-        <a href="#top" className="terrain-logo"><span>Y</span> YASH KHAIRNAR</a>
+        <a href="#top" className="terrain-logo"><span>Y</span></a>
         <div><a href="#experience">EXPERIENCE</a><a href="#work">PROJECTS</a><a href="#education">EDUCATION</a><a href="#writing">WRITING</a></div>
         <a href="mailto:yashkvk7@gmail.com">CONTACT ↗</a>
       </nav>
 
       <section className="terrain-hero" id="top">
-        <img src="/hero-universe.jpg" alt="A lone person standing on moss-covered terrain and looking into a vast galaxy" />
+        <img src="/hero-neural-terrain.png" alt="A lone person standing on moss-covered terrain and looking into a vast galaxy" />
         <div className="hero-grain" />
         <p className="hero-kicker">YASH KHAIRNAR</p>
-        <h1>WELCOME TO <span>MY SPACE</span></h1>
-        <div className="hero-meta">
-          <p className="hero-credit">AI / ML ENGINEER<br />SAN JOSE, CALIFORNIA</p>
-          <div className="hero-socials">
-            <a href="https://github.com/YashKhairnar" target="_blank" rel="noreferrer"><Github size={15} /> GITHUB <ArrowUpRight size={12} /></a>
-            <a href="https://www.linkedin.com/in/yashkhairnar11/" target="_blank" rel="noreferrer"><Linkedin size={15} /> LINKEDIN <ArrowUpRight size={12} /></a>
-          </div>
-        </div>
+        <h1>WELCOME TO MY SPACE</h1>
+        <p className="hero-credit">AI / ML ENGINEER<br />SAN JOSE, CALIFORNIA</p>
         <a href="#about" className="hero-scroll">DISCOVER MY WORK <ArrowDown size={14} /></a>
       </section>
 
@@ -51,7 +45,7 @@ export default function Home() {
       <section className="terrain-path" id="experience">
         <header className="terrain-heading"><p className="section-code">[ 002 / EXPERIENCE ]</p><h2>Where I&apos;ve worked<br />and <em>what I built.</em></h2></header>
         <div className="path-list">
-          {experience.map((item, i) => <article key={`${item.role}-${item.org}`}><span>0{i+1}</span><p>{item.dates}</p><div className="path-role"><div className="org-logo"><img src={item.logo} alt={`${item.org} logo`} /></div><div><h3>{item.role}</h3><p>{item.org}</p></div></div><p>{item.points[0]}</p></article>)}
+          {experience.map((item, i) => <article key={`${item.role}-${item.org}`}><span>0{i + 1}</span><p>{item.dates}</p><div className="path-role"><div className="org-logo"><img src={item.logo} alt={`${item.org} logo`} /></div><div><h3>{item.role}</h3><p>{item.org}</p></div></div><p>{item.points[0]}</p></article>)}
         </div>
       </section>
 
@@ -60,13 +54,13 @@ export default function Home() {
         <div className="terrain-projects">
           {projects.slice(0, 6).map((project, i) => (
             <article className="terrain-project" key={project.slug}>
-              <div className="project-image"><img src={project.image} alt={`${project.title} project`} /><span>FIG. {String(i + 1).padStart(2,"0")}</span></div>
+              <div className="project-image"><img src={project.image} alt={`${project.title} project`} /><span>FIG. {String(i + 1).padStart(2, "0")}</span></div>
               <div className="project-info">
-                <p>{project.year} / EXPERIMENT {String(i + 1).padStart(2,"0")}</p>
+                <p>{project.year} / EXPERIMENT {String(i + 1).padStart(2, "0")}</p>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <small>{project.stack}</small>
-                <div>{project.caseStudy && <Link href={`/work/${project.slug}`}>CASE STUDY <ArrowUpRight size={14} /></Link>}{project.links.slice(0,1).map(link => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label.toUpperCase()} <ArrowUpRight size={14} /></a>)}</div>
+                <div>{project.caseStudy && <Link href={`/work/${project.slug}`}>CASE STUDY <ArrowUpRight size={14} /></Link>}{project.links.slice(0, 1).map(link => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label.toUpperCase()} <ArrowUpRight size={14} /></a>)}</div>
               </div>
             </article>
           ))}
@@ -77,25 +71,19 @@ export default function Home() {
       <section className="terrain-path terrain-education" id="education">
         <header className="terrain-heading"><p className="section-code">[ 004 / EDUCATION ]</p><h2>Academic<br /><em>foundation.</em></h2></header>
         <div className="path-list education-list">
-          {education.map((item, i) => <article key={item.school}><span>0{i+1}</span><p>{item.location}</p><div className="path-role"><div className="org-logo"><img src={item.logo} alt={item.logoAlt} /></div><div><h3>{item.degree}</h3><p>{item.school}</p></div></div><p>{item.detail}</p></article>)}
+          {education.map((item, i) => <article key={item.school}><span>0{i + 1}</span><p>{item.location}</p><div className="path-role"><div className="org-logo"><img src={item.logo} alt={item.logoAlt} /></div><div><h3>{item.degree}</h3><p>{item.school}</p></div></div><p>{item.detail}</p></article>)}
         </div>
       </section>
 
       <section className="terrain-writing" id="writing">
-        <div className="writing-layout">
-          <header className="terrain-heading"><p className="section-code">[ 005 / WRITING ]</p><h2>Ideas, explained<br />from <em>first principles.</em></h2><a href="https://yashkhairnar.medium.com" target="_blank" rel="noreferrer" className="writing-archive-link">VIEW ALL WRITING <ArrowUpRight size={14} /></a></header>
-          <WritingCarousel />
-        </div>
+        <header className="terrain-heading"><p className="section-code">[ 005 / WRITING ]</p><h2>Ideas, explained<br />from <em>first principles.</em></h2><Link href="/blog" className="writing-archive-link">VIEW ALL WRITING <ArrowUpRight size={14} /></Link></header>
+        <WritingCarousel />
       </section>
 
       <section className="terrain-contact">
         <p className="section-code">[ 006 / CONTACT ]</p>
         <h2>Let&apos;s build what<br />comes <em>next.</em></h2>
         <a href="mailto:yashkvk7@gmail.com">YASHKVK7@GMAIL.COM <ArrowUpRight /></a>
-        <div className="contact-socials">
-          <a href="https://github.com/YashKhairnar" target="_blank" rel="noreferrer"><Github size={21} /><span><small>EXPLORE MY CODE</small>GITHUB</span><ArrowUpRight size={17} /></a>
-          <a href="https://www.linkedin.com/in/yashkhairnar11/" target="_blank" rel="noreferrer"><Linkedin size={21} /><span><small>CONNECT WITH ME</small>LINKEDIN</span><ArrowUpRight size={17} /></a>
-        </div>
         <footer><p>© 2026 YASH KHAIRNAR</p><div><a href="https://github.com/YashKhairnar">GITHUB</a><a href="https://www.linkedin.com/in/yashkhairnar11/">LINKEDIN</a></div><p>37.3387° N / 121.8853° W</p></footer>
       </section>
     </main>
