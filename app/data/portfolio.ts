@@ -1,3 +1,23 @@
+export type ProjectLink = { label: string; href: string };
+export type CaseStudy = {
+  problem: string;
+  architecture: string[];
+  highlights: string[];
+  lessons: string[];
+  next: string;
+  results?: { headers: string[]; rows: string[][]; note?: string };
+};
+export type Project = {
+  year: string;
+  slug: string;
+  title: string;
+  description: string;
+  stack: string;
+  image?: string;
+  links: ProjectLink[];
+  caseStudy?: CaseStudy;
+};
+
 export const links = [
   { label: "GitHub", href: "https://github.com/YashKhairnar" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/yashkhairnar11/" },
@@ -52,7 +72,121 @@ export const papers = [
   }
 ];
 
-export const projects = [
+export const projects: Project[] = [
+  {
+    year: "2026",
+    slug: "vlm-zoom-agent",
+    title: "VLM Zoom Agent",
+    description:
+      "On-device \"thinking with images\": Qwen2.5-VL-7B calls a zoom tool to inspect tiny details in high-res photos. Evaluated on all 191 V*Bench questions on an M4 Pro with MLX.",
+    stack: "Qwen2.5-VL-7B, MLX, mlx-vlm, V*Bench, Python",
+    image: "/vlm-zoom-agent.png",
+    links: [
+      { label: "code", href: "https://github.com/YashKhairnar/vlm-zoom-agent" },
+    ],
+    caseStudy: {
+      problem:
+        "Vision-language models downsample high-resolution images to a fixed token budget, so small details such as a distant person or a sign get lost. The question was whether a training-free agent that zooms into the original image can recover them, running entirely on a laptop.",
+      architecture: [
+        "The full image is downsampled to about 1024 visual tokens and shown with the question.",
+        "Qwen2.5-VL replies with either ZOOM {bbox_2d: [x1, y1, x2, y2]} or ANSWER: <letter>, reusing its native grounding format so no fine-tuning is needed.",
+        "The box is mapped back to original-resolution pixels, padded by 15%, cropped from the original image, and resized to the same ~1024-token budget.",
+        "The crop is appended to the conversation as a new image, with earlier images kept in context, for up to N zooms.",
+        "A robust parser handles code fences, extra JSON fields and mixed outputs; every step, box and token count is logged per question.",
+      ],
+      results: {
+        headers: ["Condition", "Accuracy", "Attribute", "Spatial", "Latency"],
+        rows: [
+          ["Full image only", "68.6%", "67.8%", "69.7%", "3.8 s"],
+          ["Zoom agent, max 1", "69.6%", "67.8%", "72.4%", "10.9 s"],
+          ["Zoom agent, max 3", "70.7%", "70.4%", "71.1%", "11.1 s"],
+          ["Fixed 2×2 grid + full image", "76.4%", "81.7%", "68.4%", "20.9 s"],
+        ],
+        note: "Qwen2.5-VL-7B-Instruct 4-bit, greedy decoding, all 191 V*Bench questions on an Apple M4 Pro (24 GB).",
+      },
+      highlights: [
+        "When the agent's crop contains the target, attribute questions are answered correctly 90.5% of the time; when it misses, accuracy falls to 46.2%.",
+        "Measured target coverage using V*Bench's annotated boxes, which showed that only 43.5% of final crops contained every target.",
+        "Ran paired sign tests against the baseline: the 2×2 grid's +15 net gain is significant (p = 0.008); the agent's +4 is not (p = 0.45).",
+      ],
+      lessons: [
+        "Localization, not perception, is the bottleneck: the model sees well once it looks in the right place.",
+        "Crops are very tight (median 0.25% of the image), so a small grounding error drops the target out of view.",
+        "The model almost never re-zooms (188 of 191 trajectories used exactly one zoom), so it cannot recover from a bad first crop.",
+      ],
+      next:
+        "Train a better zoom policy with RL or SFT using a \"crop contains target\" reward, add a minimum crop size or wider margin, and try a hybrid that uses grid views to choose where to zoom.",
+    },
+  },
+  {
+    year: "2026",
+    slug: "echo",
+    title: "Echo",
+    description:
+      "Communication-efficient world models for connected driving: a self-driving car learns when to ask other cars for information, and whom to ask, when every question has a cost.",
+    stack: "PyTorch, HighwayEnv, world models, model-based planning, DQN",
+    image: "/echo.png",
+    links: [
+      { label: "code", href: "https://github.com/YashKhairnar/Echo" },
+      { label: "timeline", href: "https://yashkhairnar.github.io/Echo/timeline.html" },
+    ],
+    caseStudy: {
+      problem:
+        "The ego car's lane is blocked, so it must merge into a line of traffic where each car is secretly yielding or aggressive. They look identical until you try to merge, so the only way to know in advance is to ask. Asking costs bandwidth, so the car should only ask when the answer would change how it drives.",
+      architecture: [
+        "MLPx, a world model, predicts the next state from the car's observations plus any received messages, including whether a crash happens within 3 steps.",
+        "A planner rolls out candidate action sequences inside MLPx and executes the first action of the best plan.",
+        "A request policy decides each step whether to ask one nearby car or nobody, trained with a DQN on driving reward minus communication cost.",
+        "A value-of-information rule asks a car only when the planner, imagining both possible answers, would drive differently than without asking.",
+      ],
+      results: {
+        headers: ["Policy", "Score", "Crashes", "Questions / ep"],
+        rows: [
+          ["Ask nobody", "5.79", "18%", "0"],
+          ["Ask everyone", "2.03", "0%", "152"],
+          ["Rear-car rule (hand-written)", "8.47", "0%", "6.7"],
+          ["Request DQN (mean of 3 runs)", "7.09", "3%", "18.2"],
+          ["Value-of-information rule", "8.52", "4%", "9.5"],
+        ],
+        note: "200 unseen episodes, cost 0.05 per question.",
+      },
+      highlights: [
+        "The value-of-information rule needs no training, matches or beats the hand-written rule at every question cost tested (0 to 0.5), and asks less as questions get more expensive.",
+        "Showed the world model learns to use messages: knowing whether a car yields cuts crashes from 18% (ask nobody) to near zero.",
+        "Built the full stack: custom merge scenario, vehicle behaviours and messaging on HighwayEnv, world-model training, planner and evaluation scripts.",
+      ],
+      lessons: [
+        "Communication only helps when the hidden information actually changes the best action; early highway experiments showed asking never helped there.",
+        "Planning with a learned world model gives a principled value for information without learning a separate policy.",
+        "The learned request DQN learned to ask, but far too often, because the reward signal for a single question is noisy.",
+      ],
+      next:
+        "Use the value-of-information rule as a teacher and distil it into the DQN, investigate the remaining 2–4% crashes, and extend the idea to a 4-lane highway with normal traffic.",
+    },
+  },
+  {
+    year: "2026",
+    slug: "leap",
+    title: "LEAP",
+    description:
+      "AI tutor that teaches ML tasks through Java connections or everyday examples, collecting learner histories to train a learner-state world model for adaptive teaching.",
+    stack: "Next.js, FastAPI, PyTorch, Docker, world models",
+    links: [
+      { label: "site", href: "https://leap-nine-mu.vercel.app" },
+      { label: "code", href: "https://github.com/YashKhairnar/LEAP" },
+    ],
+  },
+  {
+    year: "2026",
+    slug: "open-paper-lab",
+    title: "Open Paper Lab",
+    description:
+      "From-scratch implementations of research papers: Transformers, LoRA, SimCLR, neural machine translation, RNNs/LSTMs, and more.",
+    stack: "PyTorch, Jupyter",
+    links: [
+      { label: "code", href: "https://github.com/YashKhairnar/open-paper-lab" },
+    ],
+  },
   {
     year: "2026",
     slug: "documentation-assistant",

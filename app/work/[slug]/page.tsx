@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/app/data/portfolio";
 
 const caseStudyProjects = projects.filter((project) => project.caseStudy);
 type ProjectPageProps = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() { return caseStudyProjects.map((project) => ({ slug: project.slug })); }
+export function generateStaticParams() {
+  return caseStudyProjects.map((project) => ({ slug: project.slug }));
+}
+
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = caseStudyProjects.find((item) => item.slug === slug);
-  return project ? { title: `${project.title} — Yash Khairnar`, description: project.description } : { title: "Project Not Found" };
-}
-
-function StudySection({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
-  return <section className="study-section"><p>{number}</p><div><h2>{title}</h2>{children}</div></section>;
+  return project
+    ? { title: `${project.title} — Yash Khairnar`, description: project.description }
+    : { title: "Project Not Found" };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -24,17 +25,71 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project?.caseStudy) notFound();
   const study = project.caseStudy;
 
-  return <main className="study-page">
-    <nav className="study-nav"><Link href="/"><ArrowLeft size={14} /> BACK TO PORTFOLIO</Link><span>CASE STUDY / {project.year}</span></nav>
-    <header className="study-hero"><p className="section-code">[ PROJECT / {project.year} ]</p><h1>{project.title}</h1><p>{project.description}</p><div>{project.links.map((link) => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label.toUpperCase()} <ArrowUpRight size={14} /></a>)}</div></header>
-    <figure className="study-visual"><img src={project.image} alt={`${project.title} interface`} /><figcaption>{project.stack}</figcaption></figure>
-    <div className="study-body">
-      <StudySection number="01" title="The Problem"><p>{study.problem}</p></StudySection>
-      <StudySection number="02" title="System Architecture"><ol>{study.architecture.map((step, i) => <li key={step}><span>{String(i + 1).padStart(2, "0")}</span>{step}</li>)}</ol></StudySection>
-      <StudySection number="03" title="Highlights"><ul>{study.highlights.map((item) => <li key={item}>{item}</li>)}</ul></StudySection>
-      <StudySection number="04" title="Lessons"><ul>{study.lessons.map((item) => <li key={item}>{item}</li>)}</ul></StudySection>
-      <StudySection number="05" title="What Comes Next"><p>{study.next}</p></StudySection>
-    </div>
-    <footer className="study-footer"><Link href="/#work"><ArrowLeft size={14} /> BACK TO SELECTED PROJECTS</Link><span>YASH KHAIRNAR / 2026</span></footer>
-  </main>;
+  return (
+    <main className="page">
+      <header className="site-header">
+        <Link href="/" className="wordmark">Yash Khairnar</Link>
+        <nav><Link href="/#work">← Work</Link></nav>
+      </header>
+
+      <section className="intro">
+        <p className="meta">{project.year}</p>
+        <h1>{project.title}</h1>
+        <p>{project.description}</p>
+        <div className="link-row">
+          {project.links.map((link) => (
+            <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+              {link.label}<ArrowUpRight size={13} />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {project.image && (
+        <figure className="figure">
+          <img src={project.image} alt={`${project.title}`} />
+          <figcaption>{project.stack}</figcaption>
+        </figure>
+      )}
+
+      <article className="prose">
+        <h2>Problem</h2>
+        <p>{study.problem}</p>
+
+        <h2>How it works</h2>
+        <ol>{study.architecture.map((step) => <li key={step}>{step}</li>)}</ol>
+
+        {study.results && (
+          <>
+            <h2>Results</h2>
+            <div className="table-wrap">
+              <table>
+                <thead><tr>{study.results.headers.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+                <tbody>
+                  {study.results.rows.map((row) => (
+                    <tr key={row[0]}>{row.map((cell, i) => <td key={i}>{cell}</td>)}</tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {study.results.note && <p className="meta">{study.results.note}</p>}
+          </>
+        )}
+
+        <h2>Highlights</h2>
+        <ul>{study.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+
+        <h2>Lessons</h2>
+        <ul>{study.lessons.map((item) => <li key={item}>{item}</li>)}</ul>
+
+        <h2>Next</h2>
+        <p>{study.next}</p>
+      </article>
+
+      <footer className="site-footer">
+        <Link href="/#work">← Back to work</Link>
+        <span>© 2026 Yash Khairnar</span>
+      </footer>
+    </main>
+  );
 }

@@ -1,11 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cinzel, Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
+import Starfield from "./components/starfield";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const cinzel = Cinzel({
+  variable: "--font-royal",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -16,14 +30,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://yashkhairnar.com"),
   title: "Yash Khairnar",
-  description: "AI/ML engineer and CS graduate student at SJSU focused on building intelligent systems that can learn, reason, and act.",
+  description: "ML/AI engineer and MSCS student at SJSU working across LLMs, reinforcement learning, computer vision, and GPU-accelerated ML.",
   openGraph: {
     title: "Yash Khairnar",
-    description: "AI/ML engineer and CS graduate student at SJSU focused on building intelligent systems that can learn, reason, and act.",
+    description: "ML/AI engineer and MSCS student at SJSU working across LLMs, reinforcement learning, computer vision, and GPU-accelerated ML.",
     siteName: "Yash Khairnar",
     images: [
       {
-        url: "/Yash.jpeg",
+        url: "/yash.jpeg",
         width: 1200,
         height: 630,
         alt: "Yash Khairnar",
@@ -42,8 +56,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${cinzel.variable} antialiased`}
       >
+        <Starfield />
         {children}
         <Analytics />
       </body>

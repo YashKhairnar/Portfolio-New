@@ -1,44 +1,57 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { projectArchive } from "../data/portfolio";
+import { ArrowUpRight } from "lucide-react";
+import { projectArchive, projects } from "../data/portfolio";
+
+export const metadata: Metadata = { title: "Projects — Yash Khairnar" };
 
 export default function Projects() {
-  return (
-    <main className="archive-page">
-      <nav className="archive-nav">
-        <Link href="/" className="terrain-logo"><span>Y</span> YASH KHAIRNAR</Link>
-        <Link href="/"><ArrowLeft size={14} /> BACK TO PORTFOLIO</Link>
-      </nav>
+  const all = [
+    ...projects.map((p) => ({ ...p, internal: Boolean(p.caseStudy) })),
+    ...projectArchive.map((p) => ({ ...p, slug: p.title, internal: false })),
+  ];
 
-      <header className="archive-hero">
-        <p className="section-code">[ INDEX / 001—{String(projectArchive.length).padStart(3, "0")} ]</p>
-        <h1>Project<br /><em>archive.</em></h1>
-        <div>
-          <p>Additional projects, hackathon builds, research explorations, and earlier experiments.</p>
-          <span>SCROLL TO EXPLORE ↓</span>
-        </div>
+  return (
+    <main className="page">
+      <header className="site-header">
+        <Link href="/" className="wordmark">Yash Khairnar</Link>
+        <nav><Link href="/">← Home</Link></nav>
       </header>
 
-      <section className="archive-list" aria-label="Archived projects">
-        <div className="archive-list-head"><span>NO.</span><span>YEAR</span><span>PROJECT / DESCRIPTION</span><span>TECHNOLOGIES</span></div>
-        {projectArchive.map((project, index) => (
-          <article className="archive-row" key={project.title}>
-            <span className="archive-number">{String(index + 1).padStart(2, "0")}</span>
-            <time>{project.year}</time>
-            <div className="archive-main">
-              <h2>{project.title}</h2>
-              <p>{project.description}</p>
-              <div className="archive-links">
-                {project.links.map((link) => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label.toUpperCase()} <ArrowUpRight size={13} /></a>)}
-              </div>
-            </div>
-            <p className="archive-stack">{project.stack}</p>
-          </article>
-        ))}
+      <section className="intro">
+        <h1>Projects</h1>
+        <p className="muted">Research builds, products, hackathon projects, and earlier experiments.</p>
       </section>
 
+      <section>
+        <ul className="entries">
+          {all.map((project) => (
+            <li key={project.slug} className="entry static">
+              <div className="entry-head">
+                <h3>
+                  {project.internal ? <Link href={`/work/${project.slug}`}>{project.title}</Link> : project.title}
+                </h3>
+                <span className="meta">{project.year}</span>
+              </div>
+              <p>{project.description}</p>
+              <p className="meta">{project.stack}</p>
+              <div className="link-row small">
+                {project.internal && <Link href={`/work/${project.slug}`}>Case study</Link>}
+                {project.links.map((link) => (
+                  <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+                    {link.label}<ArrowUpRight size={12} />
+                  </a>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <footer className="archive-footer"><p>© 2026 YASH KHAIRNAR</p><p>SAN JOSE, CALIFORNIA</p></footer>
+      <footer className="site-footer">
+        <span>© 2026 Yash Khairnar</span>
+        <a href="mailto:yashkvk7@gmail.com">yashkvk7@gmail.com</a>
+      </footer>
     </main>
   );
 }
